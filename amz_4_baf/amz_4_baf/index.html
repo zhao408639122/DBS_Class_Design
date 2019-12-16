@@ -277,11 +277,11 @@
                     <div ng-app="myApp" ng-controller="customersCtrl" class="panel panel-profile">
                         <div class="panel-heading bg-primary clearfix" title="刷新"
                         style="cursor:pointer" onclick="location.reload();"> 
-                            <h3>{{student.sid}}</h3>
-                            <p>{{student.name}}</p>
+                            <h3 ng-repeat="student in students">{{student.sid}}</h3>
+                            <p ng-repeat="student in students">{{student.name}}</p>
                         </div>
-                        <ul class="list-group list-unstyled list-info">
-                           <li ng-repeat="student in students" class="list-group-item">
+                        <ul ng-repeat ="student in students" class="list-group list-unstyled list-info">
+                           <li class="list-group-item">
                                 <i class="icon fa fa-circle-o"></i>
                                 <label>证件类型</label>  学生证
                             </li >
