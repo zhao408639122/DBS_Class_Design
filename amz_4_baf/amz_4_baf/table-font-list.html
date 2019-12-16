@@ -324,7 +324,23 @@
                                         </tr>
                                     </thead>
                                     <tbody id = "table">
-                                        
+                                        <tr>
+                                            <td><input type="checkbox"></td>
+                                            <td>1</td>
+                                            <td><a href="#">Business management</a></td>
+                                            <td>default</td>
+                                            <td class="am-hide-sm-only">测试1号</td>
+                                            <td class="am-hide-sm-only">2014年9月4日 7:28:47</td>
+                                            <td>
+                                                <div class="am-btn-toolbar">
+                                                    <div class="am-btn-group am-btn-group-xs">
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-secondary"><span class="am-icon-pencil-square-o"></span> 编辑</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-hide-sm-only"><span class="am-icon-copy"></span> 复制</button>
+                                                        <button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only"><span class="am-icon-trash-o"></span> 删除</button>
+                                                    </div>
+                                                </div>
+                                            </td>
+                                        </tr>
                                     </tbody>
                                 </table>
                                 <div class="am-cf">
@@ -367,6 +383,7 @@
 
     <script src="assets/js/amazeui.min.js"></script>
     <script src="assets/js/app.js"></script>
+    <script src="assets/js/jquery.min.js"></script>
     <script src="http://lib.sinaapp.com/js/jquery/3.1.0/jquery-3.1.0.js"></script>
     <script>
         function ShowView()
@@ -376,17 +393,18 @@
         var view = $('#table');
         view.append('<tr>'+'<td>'+'<input type="checkbox">'+'</td>'
             +'<td>'+000+'</td>'
-            +'<td>'+'<a href="#">'+无名氏+'</a>'+'</td>'
-            +'<td>'+未知+'</td>'
-            +'<td class="am-hide-sm-only">'+计算机学院+'</td>'
-            +'<td class="am-hide-sm-only">'+计算机专业+'</td>'
-            +'<td class="am-hide-sm-only">'+一班+'</td>'
+            +'<td>'+'<a href="#">'+'无名氏'+'</a>'+'</td>'
+            +'<td>'+18+'</td>'
+            +'<td>'+'未知'+'</td>'
+            +'<td class="am-hide-sm-only">'+'计算机学院'+'</td>'
+            +'<td class="am-hide-sm-only">'+'计算机专业'+'</td>'
+            +'<td class="am-hide-sm-only">'+'一班'+'</td>'
             +'<td>'
                 +'<div class="am-btn-toolbar">'
                     +'<div class="am-btn-group am-btn-group-xs">'
-                        +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary">'+'<span class="am-icon-pencil-square-o">'+'</span>'+编辑+'</button>'
-                        +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary">'+'<span class="am-icon-pencil-square-o">'+'</span>'+复制+'</button>'
-                        +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary">'+'<span class="am-icon-pencil-square-o">'+'</span>'+删除+'</button>'
+                        +'<button class="am-btn am-btn-default am-btn-xs am-text-secondary">'+'<span class="am-icon-pencil-square-o">'+'</span>'+'编辑'+'</button>'
+                        +'<button class="am-btn am-btn-default am-btn-xs am-hide-sm-only">'+'<span class="am-icon-copy">'+'</span>'+'复制'+'</button>'
+                        +'<button class="am-btn am-btn-default am-btn-xs am-text-danger am-hide-sm-only">'+'<span class="am-icon-trash-o">'+'</span>'+'删除'+'</button>'
                     +'</div>'
                 +'</div>'
             +'</td>')

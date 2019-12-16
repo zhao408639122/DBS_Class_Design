@@ -5,7 +5,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <title>Amaze UI Admin index Examples</title>
-    <meta name="description" content="这是一个 index 页面">
+    <meta name="description" content="这是一个 profile 页面">
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
@@ -16,18 +16,11 @@
     <link rel="stylesheet" href="assets/css/amazeui.min.css" />
     <link rel="stylesheet" href="assets/css/admin.css">
     <link rel="stylesheet" href="assets/css/app.css">
-    <link rel="stylesheet" href="assets/css/font-awesome.min.css">
-    <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
-          rel="stylesheet"></link>
-    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
-	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="assets/js/echarts.min.js"></script>
+    
 </head>
 
 <body data-type="index">
-
-
     <header class="am-topbar am-topbar-inverse admin-header">
         <div class="am-topbar-brand">
             <a href="javascript:;" class="tpl-logo">
@@ -252,104 +245,85 @@
                 </ul>
             </div>
         </div>
-
-
-
-
-
         <div class="tpl-content-wrapper">
-            <div class="tpl-content-page-title">
-                 首页
-            </div>
-            <ol class="am-breadcrumb">
-                <li><a href="#" class="am-icon-home">首页</a></li>
-                <li><a href="#">分类</a></li>
-                <li class="am-active">内容</li>
-            </ol>
-        </div>
+          <div class="tpl-content-page-title">
+              个人信息
+          </div>
+          <ol class="am-breadcrumb">
+            <li><a href="#" class="am-icon-home">首页</a></li>
+            <li><a href="#">表单</a></li>
+            <li class="am-active">Amaze UI 表单</li>
+          </ol>
+          <div class="tpl-portlet-components">
+              <div class="portlet-title">
+                  <div class="caption font-green bold">
+                      <span class="am-icon-code"></span> 表单
+                  </div>
+              </div>
+              
+              <div class="tpl-block ">
 
-            <div class="page page-profile" data-ng-controller="userProfileCtrl">
-                <div class="row">
-                <!--左侧-->
-                
-                    <!--用户基本信息-->
-                    <div class="panel panel-profile">
-                        <div class="panel-heading bg-primary clearfix" title="刷新"
-                        style="cursor:pointer" onclick="location.reload();"> 
-                            <h3>18353163695</h3>
-                            <p>袁方</p>
-                        </div>
-                        <ul class="list-group list-unstyled list-info">
-                            <li class="list-group-item">
-                                <i class="icon fa fa-dollar"></i>
-                                <label>电子钱包</label>0.00                    
-                            </li>
-                            <li class="list-group-item">
-                                <i class="icon fa fa-users">  </i>
-                                <label>用户组</label>学生/研究生/环境科学与工程                    
-                            </li>
-                           <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>证件类型</label>身份证
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>证件号码</label>370102199509060085                        
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>手机号</label>18353163695                        
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>邮件</label>                        
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>用户类型</label>普通用户
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>专业名称</label> 123                        
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>单位</label>环境科学与工程学院                        
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>性别</label>女                        
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>民族</label>                        
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>首次登陆标识</label>                      
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>部门</label>                        
-                            </li>
-                            <li class="list-group-item">
-                                    <i class="icon fa fa-circle-o"></i>
-                                    <label>校区</label>青岛校区                        
-                            </li>
-                                               
-                               
-                               
-                        </ul>
+                <div class="am-g tpl-amazeui-form">
+
+
+                    <div class="am-u-sm-12 am-u-md-9">
+                        <form class="am-form am-form-horizontal">
+                            <div class="am-form-group">
+                                <label for="user-name" class="am-u-sm-3 am-form-label">姓名 / Name</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="user-name" placeholder="姓名 / Name">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="sid" class="am-u-sm-3 am-form-label">学号 / SID</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="sid" placeholder="输入你的学号">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="age" class="am-u-sm-3 am-form-label">年龄 / AGE</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="age" placeholder="输入你的年龄">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="sex" class="am-u-sm-3 am-form-label">性别 / SEX</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="sex" placeholder="输入你的性别">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                              <label for="class" class="am-u-sm-3 am-form-label">班级 / Class</label>
+                              <div class="am-u-sm-9">
+                                  <input type="text" id="class" placeholder="输入你的班级">
+                              </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="department" class="am-u-sm-3 am-form-label">学院 / Department</label>
+                                <div class="am-u-sm-9">
+                                    <input type="text" id="department" placeholder="输入你的学院">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <label for="major" class="am-u-sm-3 am-form-label">专业 / major</label>
+                                <div class="am-u-sm-9">
+                                  <input type="text" id="major" placeholder="输入你的专业">
+                                </div>
+                            </div>
+
+                            <div class="am-form-group">
+                                <div class="am-u-sm-9 am-u-sm-push-3">
+                                    <button type="button" class="am-btn am-btn-primary">保存修改</button>
+                                </div>
+                            </div>
+                        </form>
                     </div>
                 </div>
-    <script src="assets/js/jquery.min.js"></script>
-    <script src="assets/js/amazeui.min.js"></script>
-    <script src="assets/js/iscroll.js"></script>
-    <script src="assets/js/app.js"></script>
-    <script>
-        function 
-    </script>
-
-</body>
-
-</html>
+            
+          
