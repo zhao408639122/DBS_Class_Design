@@ -2,11 +2,11 @@ import{ BaseEntity, PrimaryGeneratedColumn, Column, Entity, PrimaryColumn } from
 @Entity()
 export class course extends BaseEntity {
     @PrimaryColumn({length: 20,nullable: false})
-    cid: number;
+    cid: string;
 
     @Column({length: 10,nullable: false})
     cname: string;
 
-    @Column({length:2,nullable: false})
+    @Column({nullable: false})
     credit: number;
 }

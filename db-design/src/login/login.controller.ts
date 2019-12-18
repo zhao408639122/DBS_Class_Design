@@ -6,6 +6,7 @@ import { format } from 'path';
 import { Request, Response} from 'express';
 import { LoginService } from './login.service';
 import { get } from 'http';
+import * as session from 'express-session';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateUserDto } from './model/CreateUserDto';
 @Controller('login')
@@ -23,15 +24,20 @@ export class LoginController {
 
     }
 
-    @Post('')//Create user
+    @Post('')//Create user  
     public async create(@Body() createUser: CreateUserDto, @Res() res:Response) {
         await this.LoginService.createUser(createUser);
         return res.status(HttpStatus.CREATED).send();
     }
     
     @Post('login')
-    public async login(@Req() req: Request, @Res() res: Response, @Session() session) {
-        const ses = session;
-        return res.status(HttpStatus.OK).send();
+    public async login(@Req() req: Request, @Res() res: Response, @Body() user: {user_id : string, password : string, authority: string}) {
+        req.session.user_id = '';
+        user = await this.LoginService.login(user);
+        req.session.user_id = user.user_id;
+        req.session.authority = user.authority;
+        return res
+            .status(HttpStatus.OK).send()
+            .send(user);
     }
 }

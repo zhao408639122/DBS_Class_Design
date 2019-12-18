@@ -2,7 +2,7 @@ import{ BaseEntity, PrimaryGeneratedColumn, Column, Entity, PrimaryColumn } from
 @Entity()
 export class teacher extends BaseEntity {
     @PrimaryColumn({length: 20,nullable: false})
-    tid: number;
+    tid: string;
 
     @Column({length: 20,nullable: false})
     tname: string;

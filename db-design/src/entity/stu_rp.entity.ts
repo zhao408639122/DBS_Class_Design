@@ -2,10 +2,10 @@ import{ BaseEntity, PrimaryGeneratedColumn, Column, Entity, PrimaryColumn } from
 @Entity()
 export class student extends BaseEntity {
     @PrimaryColumn({length: 20,nullable: false})
-    sid: number;
+    sid: string;
 
     @PrimaryColumn({length: 20,nullable: false})
-    rid: number;
+    rid: string;
 
     @Column()
     time: Date;

@@ -2,11 +2,11 @@ import{ BaseEntity, PrimaryGeneratedColumn, Column, Entity, PrimaryColumn } from
 @Entity()
 export class stu_course extends BaseEntity {
     @PrimaryColumn({length: 20,nullable: false})
-    sid: number;
+    sid: string;
 
     @PrimaryColumn({length: 20,nullable: false})
-    cid: number;
+    cid: string;
 
-    @Column({length:3,nullable: false})
+    @Column({nullable: false})
     score: number;
 }

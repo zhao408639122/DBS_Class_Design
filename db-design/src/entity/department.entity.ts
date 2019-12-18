@@ -1,6 +1,6 @@
 import{ BaseEntity, PrimaryGeneratedColumn, Column, Entity, PrimaryColumn } from "typeorm";
 @Entity()
-export class student extends BaseEntity {
+export class department extends BaseEntity {
     @PrimaryColumn({length: 20,nullable: false})
     dname: string;
 
