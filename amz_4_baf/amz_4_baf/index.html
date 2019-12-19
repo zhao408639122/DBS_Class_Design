@@ -9,7 +9,6 @@
     <meta name="keywords" content="index">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="renderer" content="webkit">
-    <meta http-equiv="Cache-Control" content="no-siteapp" />
     <link rel="icon" type="image/png" href="assets/i/favicon.png">
     <link rel="apple-touch-icon-precomposed" href="assets/i/app-icon72x72@2x.png">
     <meta name="apple-mobile-web-app-title" content="Amaze UI" />
@@ -20,7 +19,7 @@
     <link href="https://cdn.bootcss.com/toastr.js/latest/css/toastr.css" rel="stylesheet">
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link href="https://cdn.bootcss.com/bootstrap-datetimepicker/4.17.47/css/bootstrap-datetimepicker.min.css"
-          rel="stylesheet"></link>
+          rel="stylesheet">
     <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
     <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://cdn.staticfile.org/angular.js/1.6.3/angular.min.js"></script>
@@ -46,7 +45,7 @@
             <ul class="am-nav am-nav-pills am-topbar-nav am-topbar-right admin-header-list tpl-header-list">
                 <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                     <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                        <span class="am-icon-bell-o"></span> 提醒 <span class="am-badge tpl-badge-success am-round">5</span></span>
+                        <span class="am-icon-bell-o"></span> 提醒 <span class="am-badge tpl-badge-success am-round">5</span>
                     </a>
                     <ul class="am-dropdown-content tpl-dropdown-content">
                         <li class="tpl-dropdown-content-external">
@@ -64,7 +63,7 @@
                 </li>
                 <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                     <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                        <span class="am-icon-comment-o"></span> 消息 <span class="am-badge tpl-badge-danger am-round">9</span></span>
+                        <span class="am-icon-comment-o"></span> 消息 <span class="am-badge tpl-badge-danger am-round">9</span>
                     </a>
                     <ul class="am-dropdown-content tpl-dropdown-content">
                         <li class="tpl-dropdown-content-external">
@@ -94,7 +93,7 @@
                 </li>
                 <li class="am-dropdown" data-am-dropdown data-am-dropdown-toggle>
                     <a class="am-dropdown-toggle tpl-header-list-link" href="javascript:;">
-                        <span class="am-icon-calendar"></span> 进度 <span class="am-badge tpl-badge-primary am-round">4</span></span>
+                        <span class="am-icon-calendar"></span> 进度 <span class="am-badge tpl-badge-primary am-round">4</span>
                     </a>
                     <ul class="am-dropdown-content tpl-dropdown-content">
                         <li class="tpl-dropdown-content-external">
@@ -202,20 +201,19 @@
                                     <span>图片表格</span>
                                     <i class="tpl-left-nav-content tpl-badge-success">
                18
-             </i>
+             </i></a>
 
                                     <a href="form-news.html">
                                         <i class="am-icon-angle-right"></i>
                                         <span>消息列表</span>
                                         <i class="tpl-left-nav-content tpl-badge-primary">
                5
-             </i>
+             </i></a>
 
 
                                         <a href="form-news-list.html">
                                             <i class="am-icon-angle-right"></i>
                                             <span>文字列表</span>
-
                                         </a>
                             </li>
                         </ul>
@@ -280,7 +278,7 @@
                             <h3 ng-repeat="student in students">{{student.sid}}</h3>
                             <p ng-repeat="student in students">{{student.name}}</p>
                         </div>
-                        <ul ng-repeat ="student in students" class="list-group list-unstyled list-info">
+                        <ul ng-repeat ="student in students" class="list-group  list-info">
                            <li class="list-group-item">
                                 <i class="icon fa fa-circle-o"></i>
                                 <label>证件类型</label>  学生证
@@ -315,7 +313,9 @@
                                     <label>班级</label>{{student.class}}                        
                             </li>
                         </ul>
-                    </divng-repeat="student in students">
+                    </div>
+                </div>
+            </div>
                 </div>
     <script src="assets/js/jquery.min.js"></script>
     <script src="assets/js/amazeui.min.js"></script>
