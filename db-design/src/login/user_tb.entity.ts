@@ -59,7 +59,8 @@ export class user_tb extends BaseEntity {
         } catch (err) {
             throw new AppError(AppErrorTypeEnum.WRONG_PASSWORD);
         }
-        const passHash = crypto.createHmac('sha256', user.password).digest('hex');
+        var k: string = user.password;
+        const passHash = crypto.createHmac('sha256', k).digest('hex');
         if (u.password_hash == passHash) {
             delete u.password_hash;
             return u;

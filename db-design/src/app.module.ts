@@ -1,12 +1,9 @@
-import { NestModule, Module, MiddlewareConsumer } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { TypeOrmModule } from '@nestjs/typeorm';
 import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoginModule } from './login/login.module';
-// import { Cors } from './lib/cors.middleware';
-import { LoginController } from './login/login.controller';
-
 
 
 @Module({
