@@ -25,6 +25,8 @@
     "@nestjs/platform-express": "^6.7.2",
     "@nestjs/swagger": "^4.0.9",
     "@nestjs/typeorm": "^6.2.0",
+    "cors": "^2.8.5",
+    "express-cors": "0.0.3",
     "express-session": "^1.17.0",
     "mysql": "^2.17.1",
     "nest.js": "^1.0.8",
