@@ -13,10 +13,10 @@ import { CreateUserDto } from './model/CreateUserDto';
 export class LoginController {
     constructor(private readonly LoginService: LoginService) {}
 
-    @Get('')//Get list of All users
+    @Get()//Get list of All users
     @ApiResponse({ status: 200, description: 'User Found' })
     @ApiResponse({ status: 404, description: 'No User Found' })
-    public async getAllUsers(@Req() req: Request, @Res() res:Response, @Session() session){
+    public async getAllUsers(@Req() req: Request, @Res() res:Response){
         const users: user_tb[] = await this.LoginService.findAll();
         return res
                 .status(HttpStatus.OK)
@@ -30,7 +30,7 @@ export class LoginController {
         return res.status(HttpStatus.CREATED).send();
     }
 
-    @Post('login')
+    @Post('/login')
     public async login(@Req() req: Request, @Res() res: Response, @Body() user: {user_id : string, password: string}) {
         req.session.user_id = '';
         var u: {user_id : string, password : string, authority: string} = await this.LoginService.login(user);
