@@ -24,18 +24,12 @@ export class LoginController {
 
     }
 
-    @Post('')// Create user  
+    @Post('/register')// Create user  
     public async create(@Body() createUser: CreateUserDto, @Res() res:Response) {
         await this.LoginService.createUser(createUser);
         return res.status(HttpStatus.CREATED).send();
     }
-    @Post('p')//
-    public async Plogin(@Req() req: Request, @Res() res: Response, @Body() user: {user_id : string, password: string}) {
-        return res
-            .status(HttpStatus.OK)
-            .send(user);
-    }
-    
+
     @Post('login')
     public async login(@Req() req: Request, @Res() res: Response, @Body() user: {user_id : string, password: string}) {
         req.session.user_id = '';

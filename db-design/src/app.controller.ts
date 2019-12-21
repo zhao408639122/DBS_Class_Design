@@ -12,11 +12,5 @@ export class AppController {
   getHello(): string {
     return this.appService.getHello();
   }
-  @Post('log')
-  public async login(@Req() req: Request, @Res() res: Response, @Body() user: {user_id : string, password: string, authority: string}) {
-      return res
-          .status(HttpStatus.OK)
-          .send(user);
-  }
 
 }
