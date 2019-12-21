@@ -51,19 +51,18 @@ export class user_tb extends BaseEntity {
     }
     public static async authenticateUser(user: {user_id: string, password: string}) :Promise<user_tb> {
         let u: user_tb;
-        try{
-            u = await user_tb.findOne({
-                select: ['authority', 'user_id', 'password_hash'],
-                where:  {user_id: user.user_id}
-            });
-        } catch (err) {
-            throw new AppError(AppErrorTypeEnum.WRONG_PASSWORD);
-        }
+        u = await user_tb.findOne({
+            select: ['authority', 'user_id', 'password_hash'],
+            where:  {user_id: user.user_id}
+        });
+        if (!u) { throw new AppError(AppErrorTypeEnum.USER_NOT_FOUND); }
         var k: string = user.password;
         const passHash = crypto.createHmac('sha256', k).digest('hex');
         if (u.password_hash == passHash) {
             delete u.password_hash;
             return u;
+        } else {
+            throw new AppError(AppErrorTypeEnum.WRONG_PASSWORD);
         }
     }
 

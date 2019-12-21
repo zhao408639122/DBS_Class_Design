@@ -1,6 +1,7 @@
 import { AppErrorTypeEnum } from './AppErrorTypeEnum';
 import { IErrorMessage } from './IErrorMessage';;
-import { HttpStatus } from '@nestjs/common';
+import { Res, HttpStatus } from '@nestjs/common';
+import { Response } from 'express';
 
 export class AppError extends Error {
     public errorCode: AppErrorTypeEnum;
@@ -52,10 +53,17 @@ export class AppError extends Error {
                 res = {
                     type: AppErrorTypeEnum.NO_USERS_IN_DB,
                     httpStatus: HttpStatus.UNAUTHORIZED,
-                    errorMessage: 'Wrong password',
-                    userMessage: '用户名或密码错误，请重试'
+                    errorMessage: 'Unauthorized',
+                    userMessage: '用户无响应'
                 };
                 break;
+            case AppErrorTypeEnum.WRONG_PASSWORD:
+                res = {
+                    type: AppErrorTypeEnum.WRONG_PASSWORD,
+                    httpStatus: HttpStatus.UNAUTHORIZED,
+                    errorMessage: 'Wrong PassWord',
+                    userMessage: '用户名或密码错误，请重试'
+                }
         }
         return res;
     }

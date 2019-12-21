@@ -32,9 +32,8 @@ export class LoginController {
 
     @Post('/login')
     public async login(@Req() req: Request, @Res() res: Response, @Body() user: {user_id : string, password: string}) {
-        req.session.user_id = '';
         var u: {user_id : string, password : string, authority: string} = await this.LoginService.login(user);
-        req.session.user_id = u.user_id;
+        req.session.user_id = user.user_id;
         req.session.authority = u.authority;
         return res
             .status(HttpStatus.OK)
