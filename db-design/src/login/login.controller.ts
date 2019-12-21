@@ -25,7 +25,7 @@ export class LoginController {
     }
 
     @Post('/register')// Create user  
-    public async create(@Body() createUser: CreateUserDto, @Res() res:Response) {
+    public async create(@Body() createUser: CreateUserDto, @Res() res:Response, @Req() req:Request) {
         await this.LoginService.createUser(createUser);
         return res.status(HttpStatus.CREATED).send();
     }

@@ -7,11 +7,11 @@ export class teacher extends BaseEntity {
     @Column({length: 20,nullable: false})
     tname: string;
 
-    // @Column({nullable: false})
-    // age: number;
+    @Column({nullable: false})
+    age: number;
 
-    // @Column({length: 2,nullable: false})
-    // sex: string;
+    @Column({length: 4,nullable: false})
+    sex: string;
 
     @Column({length: 20,nullable: false})
     dname: string;

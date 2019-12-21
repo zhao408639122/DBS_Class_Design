@@ -9,4 +9,10 @@ export class course extends BaseEntity {
 
     @Column({nullable: false})
     credit: number;
+
+    @Column({length: 30,nullable: false})
+    department: string;
+
+    @Column({length: 30, nullable: false})
+    teacher: string;
 }

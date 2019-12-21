@@ -6,7 +6,6 @@ import { Request, Response } from 'express';
 
 @Controller()
 export class AppController {
-  LoginService: any;
   constructor(private readonly appService: AppService) {}
   @Get()
   getHello(): string {

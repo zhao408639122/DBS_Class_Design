@@ -4,6 +4,7 @@ import { Connection } from 'typeorm';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { LoginModule } from './login/login.module';
+import { UsersModule } from './users/users.module';
 
 
 @Module({
@@ -19,9 +20,10 @@ import { LoginModule } from './login/login.module';
       synchronize: true,
     }),
     LoginModule,
+    UsersModule,
   ],
-  controllers: [AppController],
-  providers: [AppService],
+  controllers : [AppController],
+  providers : [AppService]
 })
 export class AppModule {
   constructor (private readonly connection: Connection) {} 
