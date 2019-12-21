@@ -17,7 +17,7 @@ export class LoginService {
         return await user_tb.createUser(user);
     }
 
-    public async login(user: {user_id: string, password:string, authority: string}) : Promise<{user_id : string, password : string, authority : string}> {
+    public async login(user: {user_id: string, password:string}) : Promise<{user_id : string, password : string, authority: string}> {
         var res = await user_tb.authenticateUser(user);
         return res;
     }
