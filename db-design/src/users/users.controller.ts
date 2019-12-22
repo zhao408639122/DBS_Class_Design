@@ -8,8 +8,15 @@ import { Request, Response } from 'express';
 export class UsersController {
     constructor(private readonly usersService: UsersService) {}
 
+
     @Get()
-    public async GetAllStudent(@Req() req: Request, @Res() res: Response) {
+    public async GetStudnets(@Query() query:{query: string, pagenum: number, pagesize: number}) : Promise<{totalpage: number, pagenum: number, user: student[]}>{
+        return await this.usersService.FuzzyQuery(query);
+        
+    }
+
+    @Get('/all')
+    public async GetAllStudent(@Req() _req: Request, @Res() res: Response) {
         const AllStudent: student[] = await this.usersService.findAll();
         let StudentList: student[];
         
@@ -19,7 +26,7 @@ export class UsersController {
     }
 
     @Post(':id')
-    public async CreateStu(@Param() id: string, @Body() stu: student, @Res() res: Response, @Req() req: Request): Promise<{}>{
+    public async CreateStu(@Param() _id: string, @Body() stu: student, @Res() res: Response, @Req() _req: Request): Promise<{}>{
         await this.usersService.CreateStu(stu);
         return res
                 .status(HttpStatus.OK);
@@ -36,7 +43,7 @@ export class UsersController {
     } 
     
     @Put(':id')
-    public async ModifyStudent(@Body() stu: student, @Param() sid: string, @Res() res: Response): Promise<{}> {
+    public async ModifyStudent(@Body() stu: student, @Param() _sid: string, @Res() res: Response): Promise<{}> {
         await this.usersService.ModifyStudent(stu);
         return res
                 .status(HttpStatus.OK);

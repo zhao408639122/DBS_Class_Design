@@ -35,7 +35,6 @@ export class student extends BaseEntity {
             Object.assign(u, user);
             return await student.save(u);
         }
-        student.delete(u);
     }
 
     public static async FindBySid(sid: string): Promise<student> {

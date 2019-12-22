@@ -5,6 +5,9 @@ import { Resolver, resolve } from 'dns';
 import { rejects } from 'assert';
 import { StdioNull } from 'child_process';
 import { stu_course } from 'src/entity/stu_course.entity';
+import { concat } from 'rxjs';
+import { AppError } from 'src/common/error/AppError';
+import { AppErrorTypeEnum } from 'src/common/error/AppErrorTypeEnum';
 
 @Injectable()
 export class UsersService {
@@ -12,6 +15,28 @@ export class UsersService {
         return await student.findAll();
     }
     
+    public async FuzzyQuery(query : {query: string, pagenum: number, pagesize: number}) : Promise<{totalpage: number, pagenum: number, user: student[]}> {
+        const stu: student[] = await getRepository(student)
+        .createQueryBuilder("student")
+        .where("student.sid LIKE :param")
+        .setParameters({
+            param: '%'+ query.query +'%'
+//thestring是你读入的字符串
+        })
+        .getMany();
+        let user: student[] = [];
+        let totalpage = stu.length;
+        let pagenum = query.pagenum;
+        let bias: number = (query.pagenum - 1) * query.pagesize;
+        if (totalpage < bias || query.pagenum <= 0 || query.pagesize <= 0) throw new AppError(AppErrorTypeEnum.USER_NOT_FOUND);
+        
+        for (let i:number = 0; i < query.pagesize; i++ ){
+            if (bias + i >= totalpage) break;
+            user.push(stu[bias + i]);
+            // user[i] = stu[bias + i];
+        }
+        return {totalpage, pagenum, user};
+    }
     public async CreateStu(user: student): Promise<student> {
         return await student.CreateStu(user);
     }
