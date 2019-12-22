@@ -10,9 +10,11 @@ export class UsersController {
 
 
     @Get()
-    public async GetStudnets(@Query() query:{query: string, pagenum: number, pagesize: number}) : Promise<{totalpage: number, pagenum: number, user: student[]}>{
-        return await this.usersService.FuzzyQuery(query);
-        
+    public async GetStudnets(@Res() res :Response, @Query() query:{query: string, pagenum: number, pagesize: number}) : Promise<{}>{
+        const stu = await this.usersService.FuzzyQuery(query);
+        return res
+                .status(HttpStatus.OK)
+                .send(stu);
     }
 
     @Get('/all')
@@ -25,8 +27,8 @@ export class UsersController {
                 .send(AllStudent);
     }
 
-    @Post(':id')
-    public async CreateStu(@Param() _id: string, @Body() stu: student, @Res() res: Response, @Req() _req: Request): Promise<{}>{
+    @Post()
+    public async CreateStu(@Body() stu: student, @Res() res: Response, @Req() _req: Request): Promise<{}>{
         await this.usersService.CreateStu(stu);
         return res
                 .status(HttpStatus.OK);
