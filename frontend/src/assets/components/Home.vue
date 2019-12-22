@@ -31,7 +31,7 @@
             <el-menu-item index="/studentmessage">
               <template slot="title">
                 <i class="el-icon-menu"></i>
-                <span>学生课表</span>
+                <span>学生信息</span>
               </template>
             </el-menu-item>
             <el-menu-item index="/jiangcheng">

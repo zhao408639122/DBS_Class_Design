@@ -56,31 +56,18 @@ export default {
         // 当前每页显示多少条数据
         pagesize: 15
       },
-      courselist: {
-        cid: '',
-        cname: '',
-        dname: '',
-        major: '',
-        credit: '',
-        teacher: ''
-      },
-      courselist2: {
-        cid: '',
-        cname: '',
-        dname: '',
-        major: '',
-        credit: '',
-        teacher: ''
-      },
+      courselist: [],
+      courselist2: [],
+      total: 0,
       multipleSelection: []
     }
+  },
+  created () {
+    this.getCourseList()
   },
   methods: {
     clearSelection () {
       this.$refs.multipleTable.clearSelection()
-    },
-    created () {
-      this.getCourseList()
     },
     handleSelectionChange (val) {
       this.multipleSelection = val
@@ -94,19 +81,17 @@ export default {
       }
       this.courselist2 = res.data.courselist
       this.total = res.data.total
-      console.log(res)
     },
     async getCourseList () {
       const res = await this.$http.get('course', {
         params: this.queryInfo
       })
       console.log(res)
-      if (res.meta.status !== 200) {
+      if (res.status !== 200) {
         return this.$message.error('获取用户列表失败！')
       }
-      this.courselist = res.data.courselist
+      this.courselist = res.data.courses
       this.total = res.data.total
-      console.log(res)
     },
     // 监听 pagesize 改变的事件
     handleSizeChange (newSize) {

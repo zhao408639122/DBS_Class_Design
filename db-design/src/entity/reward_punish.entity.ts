@@ -6,7 +6,7 @@ export class reward_punish extends BaseEntity {
     @PrimaryColumn({length: 10,nullable: false})
     rid: string;
 
-    @Column({length: 2,nullable: false})
+    @Column({length: 50,nullable: false})
     type: string;
 
     public static async CreateRepus(repus: reward_punish) : Promise<reward_punish> {

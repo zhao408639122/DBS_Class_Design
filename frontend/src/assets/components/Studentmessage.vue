@@ -60,6 +60,8 @@
         <el-table-column label="课程名" prop="cname"></el-table-column>
         <el-table-column label="开设学院" prop="dname"></el-table-column>
         <el-table-column label="开设专业" prop="major"></el-table-column>
+        <el-table-column label="学分" prop="credit"></el-table-column>
+         <el-table-column label="教师" prop="teacher"></el-table-column>
       </el-table>
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pagenum"
       layout="total, prev, pager, next" :total="total">
