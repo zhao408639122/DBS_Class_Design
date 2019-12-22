@@ -10,7 +10,7 @@
          <el-row>
            <el-col :span="12">
             <el-form-item label="姓名" >
-              <el-input v-model="editForm.username" disabled></el-input>
+              <el-input v-model="editForm.sname" disabled></el-input>
             </el-form-item>
            </el-col>
            <el-col :span="12">
@@ -133,9 +133,9 @@ export default {
         const { data: res } = await this.$http.put(
           'users/' + this.editForm.sid,
           {
-            name: this.editForm.sid,
+            sname: this.editForm.sname,
             age: this.editForm.age,
-            sex: this.editForm.age,
+            sex: this.editForm.sex,
             dname: this.editForm.dname,
             major: this.editForm.major,
             class: this.editForm.class
