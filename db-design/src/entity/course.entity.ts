@@ -1,5 +1,7 @@
 import{ BaseEntity, PrimaryGeneratedColumn, Column, Entity, PrimaryColumn, OneToMany, OneToOne } from "typeorm";
 import{ stu_course} from "./stu_course.entity"
+import { AppError } from "src/common/error/AppError";
+import { AppErrorTypeEnum } from "src/common/error/AppErrorTypeEnum";
 @Entity()
 export class course extends BaseEntity {
     @PrimaryColumn({length: 20,nullable: false})
@@ -12,11 +14,43 @@ export class course extends BaseEntity {
     credit: number;
 
     @Column({length: 30,nullable: false})
-    department: string;
+    dname: string;
+
+    @Column({length: 30})
+    major: string;
 
     @Column({length: 30, nullable: false})
     teacher: string;
 
     @OneToOne(type=>stu_course,courses=>courses.Course)
     courses: stu_course;
+
+    public static async CreateCourse(Course: course) : Promise<course> {
+        let u: course;
+        u = await course.findOne({cid: Course.cid});
+        if (u) { 
+            throw new AppError(AppErrorTypeEnum.COURSE_EXISTS);
+        } else {
+            u = new course();
+            Object.assign(u, Course);
+            return await course.save(u);
+        }
+    }
+
+    public static async FindByCid(cid: string): Promise<course> {
+        var u: course = await course.findOne({cid: cid});
+        if (!u) { 
+            throw new AppError(AppErrorTypeEnum.USER_NOT_FOUND);
+        } else return u;
+    }
+    //repus
+    public static async findAll(): Promise<course[]> {
+        const courses: course[] = await course.find();
+        if (courses.length > 0) {
+            return Promise.resolve(courses);
+        } else {
+            throw new AppError(AppErrorTypeEnum.NO_USERS_IN_DB);
+        }
+    }
+
 }

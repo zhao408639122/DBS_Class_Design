@@ -23,6 +23,8 @@
         <el-table-column label="课程号" prop="cid"></el-table-column>
         <el-table-column label="学院" prop="dname"></el-table-column>
         <el-table-column label="专业" prop="major"></el-table-column>
+        <el-table-column label="学分" prop="credit"></el-table-column>
+        <el-table-column label="教师" prop="teacher"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <!-- 修改按钮 -->
@@ -57,6 +59,12 @@
         <el-form-item label="专业">
           <el-input v-model="addForm.major"></el-input>
         </el-form-item>
+        <el-form-item label="学分">
+          <el-input v-model="addForm.credit"></el-input>
+        </el-form-item>
+        <el-form-item label="教师">
+          <el-input v-model="addForm.teacher"></el-input>
+        </el-form-item>
       </el-form>
       <!-- 底部区域 -->
       <span slot="footer" class="dialog-footer">
@@ -78,6 +86,12 @@
         </el-form-item>
         <el-form-item label="专业">
           <el-input v-model="editForm.major"></el-input>
+        </el-form-item>
+        <el-form-item label="学分">
+          <el-input v-model="editForm.credit"></el-input>
+        </el-form-item>
+        <el-form-item label="教师">
+          <el-input v-model="editForm.teacher"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -109,7 +123,9 @@ export default {
         cid: '',
         cname: '',
         dname: '',
-        major: ''
+        major: '',
+        credit: '',
+        teacher: ''
       },
       // 添加表单的验证规则对象
       addFormRules: {
@@ -157,7 +173,7 @@ export default {
         if (!valid) return
         // 可以发起添加用户的网络请求
         const res = await this.$http.post('course', this.addForm)
-
+        console.log(res)
         if (res.status !== 201) {
           this.$message.error('添加用户失败！')
         }
@@ -165,7 +181,7 @@ export default {
         // 隐藏添加用户的对话框
         this.addDialogVisible = false
         // 重新获取用户列表数据
-        this.getClassList()
+        this.getCourseList()
       })
     },
     // 监听修改用户对话框的关闭事件
@@ -197,7 +213,9 @@ export default {
           {
             cname: this.editForm.cname,
             dname: this.editForm.dname,
-            major: this.editForm.major
+            major: this.editForm.major,
+            credit: this.editForm.credit,
+            teacher: this.editForm.teacher
           }
         )
         if (res.status !== 200) {

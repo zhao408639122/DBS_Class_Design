@@ -64,6 +64,13 @@ export class AppError extends Error {
                     errorMessage: 'Wrong PassWord',
                     userMessage: '用户名或密码错误，请重试'
                 }
+            case AppErrorTypeEnum.COURSE_EXISTS:
+                res = {
+                    type: AppErrorTypeEnum.COURSE_EXISTS,
+                    httpStatus: HttpStatus.UNPROCESSABLE_ENTITY,
+                    errorMessage: 'CID EXISTS',
+                    userMessage: '课序号已存在'
+                }
         }
         return res;
     }

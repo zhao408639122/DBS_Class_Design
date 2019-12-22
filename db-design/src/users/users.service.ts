@@ -15,7 +15,8 @@ export class UsersService {
         return await student.findAll();
     }
     
-    public async FuzzyQuery(query : {pagenum: number, pagesize: number, query?: string,}) : Promise<{totalpage: number, pagenum: number, user: student[]}> {
+    public async FuzzyQuery(query : {pagenum: number, pagesize: number, query?: string,}) 
+     : Promise<{totalpage: number, pagenum: number, user: student[]}> {
         // {
             const stu: student[] = await getRepository(student)
             .createQueryBuilder("student")
