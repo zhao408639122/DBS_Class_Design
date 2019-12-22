@@ -104,8 +104,8 @@ export default {
   methods: {
     async showStudentMessage () {
       // console.log(id)
-      var sid = window.sessionStorage.getItem('id')
-      const { data: res } = await this.$http.get('users/' + sid)
+      let sid = window.sessionStorage.getItem('sid')
+      const res = await this.$http.get('users/' + sid)
       if (res.meta.status !== 200) {
         return this.$message.error('查询用户信息失败！')
       }
