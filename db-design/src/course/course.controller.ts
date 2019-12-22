@@ -40,4 +40,9 @@ export class CourseController {
         return res
                 .status(HttpStatus.OK).send();
     }
+
+    @Get('/student/:id')
+    public async QueryBySid(@Param('id') sid: string): Promise<course[]> {
+        return this.courseService.QueryBySid(sid);
+    }
 }

@@ -2,9 +2,9 @@ import { Injectable } from '@nestjs/common';
 import { course } from 'src/entity/course.entity';
 import { AppError } from 'src/common/error/AppError';
 import { AppErrorTypeEnum } from 'src/common/error/AppErrorTypeEnum';
-import { getRepository, getConnection } from 'typeorm';
+import { getRepository, Connection, getConnection, createQueryBuilder } from 'typeorm';
 import { stu_course } from 'src/entity/stu_course.entity';
-
+import { student } from 'src/entity/student.entity';
 @Injectable()
 export class CourseService {
     public async findAll(): Promise<course[]> {
@@ -61,5 +61,21 @@ export class CourseService {
             stu_course.remove(v[i]);
         }
         return Promise.resolve;
+    }
+
+    public async QueryBySid(sid: string): Promise<course[]> {
+        let res: course[] = [];
+        let u = await stu_course.find();
+        let v = await course.find();
+        for (let i = 0; i < u.length; i++) {
+            if (u[i].sid === sid) {
+                for (let j = 0; j < v.length; ++j){
+                    if (v[j].cid === u[i].cid){
+                        res.push(v[j]);
+                    }
+                }
+            }
+        }
+        return res;
     }
 }
