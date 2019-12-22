@@ -5,6 +5,8 @@ import * as session from 'express-session';
 import * as bodyParser from 'body-Parser';
 import { Request, Response } from 'express';
 import { Dispatcher } from './common/filters/DispatchError';
+import passport = require('passport');
+import { DocumentBuilder } from '@nestjs/swagger';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   // app.userStaticAssets(`${__dirname}/assets`);
@@ -12,7 +14,14 @@ async function bootstrap() {
   // app.use(bodyParser.urlencoded({limit: '50mb', extended: true}));
   app.enableCors();
   app.useGlobalFilters(new Dispatcher());
-  app.use(session({secret: 'TheHashChain', cookie: {maxAge: 300000}}));
+  app.use(session({
+    resave: false,
+    secret: 'TheHashChain', 
+    cookie: {maxAge: 300000},
+    saveUninitialized: false,
+  }));
+  app.use(passport.initialize());
+  app.use(passport.session());
   // app.use((req, res, next) => {
   //   res.header('Access-Control-Allow-Origin', '*');
   //   res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');

@@ -1,4 +1,4 @@
-import { Controller, Body, Res, Session, Post, HttpStatus, Get, Req } from '@nestjs/common';
+import { Controller, Body, Res, Session, Post, HttpStatus, Get, Req, UseGuards } from '@nestjs/common';
 import { user_tb } from './user_tb.entity';
 import { Repository } from 'typeorm';
 import { promises } from 'dns';
@@ -9,6 +9,7 @@ import { get } from 'http';
 import * as session from 'express-session';
 import { ApiOperation, ApiResponse } from '@nestjs/swagger';
 import { CreateUserDto } from './model/CreateUserDto';
+import { AppAuthGuard } from 'src/auth/AppAuthGuard';
 @Controller('login')
 export class LoginController {
     constructor(private readonly LoginService: LoginService) {}
