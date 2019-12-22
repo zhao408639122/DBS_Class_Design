@@ -10,7 +10,7 @@
          <el-row>
            <el-col :span="12">
             <el-form-item label="姓名" >
-              <el-input v-model="editForm.username" disabled></el-input>
+              <el-input v-model="editForm.sname" disabled></el-input>
             </el-form-item>
            </el-col>
            <el-col :span="12">
@@ -106,7 +106,8 @@ export default {
       // console.log(id)
       let sid = window.sessionStorage.getItem('sid')
       const res = await this.$http.get('users/' + sid)
-      if (res.meta.status !== 200) {
+      console.log(res)
+      if (res.status !== 200) {
         return this.$message.error('查询用户信息失败！')
       }
       this.editForm = res.data
@@ -119,9 +120,9 @@ export default {
         const { data: res } = await this.$http.put(
           'users/' + this.editForm.sid,
           {
-            name: this.editForm.sid,
+            sname: this.editForm.sname,
             age: this.editForm.age,
-            sex: this.editForm.age,
+            sex: this.editForm.sex,
             dname: this.editForm.dname,
             major: this.editForm.major,
             class: this.editForm.class
