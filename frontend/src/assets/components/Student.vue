@@ -133,7 +133,6 @@ export default {
     return {
       // 获取用户列表的参数对象
       queryInfo: {
-        query: '',
         // 当前的页数
         pagenum: 1,
         // 当前每页显示多少条数据

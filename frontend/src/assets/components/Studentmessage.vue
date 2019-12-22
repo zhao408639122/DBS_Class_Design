@@ -7,14 +7,26 @@
     </el-breadcrumb>
     <el-card>
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px">
-        <el-form-item label="用户名">
+        <el-form-item label="姓名">
           <el-input v-model="editForm.username" disabled></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="editForm.email"></el-input>
+        <el-form-item label="学号">
+          <el-input v-model="editForm.sid"></el-input>
         </el-form-item>
-        <el-form-item label="手机" prop="mobile">
-          <el-input v-model="editForm.mobile"></el-input>
+        <el-form-item label="年龄">
+          <el-input v-model="editForm.age"></el-input>
+        </el-form-item>
+        <el-form-item label="性别">
+          <el-input v-model="editForm.sex"></el-input>
+        </el-form-item>
+        <el-form-item label="学院">
+          <el-input v-model="editForm.dname"></el-input>
+        </el-form-item>
+        <el-form-item label="专业">
+          <el-input v-model="editForm.major"></el-input>
+        </el-form-item>
+        <el-form-item label="班级">
+          <el-input v-model="editForm.class"></el-input>
         </el-form-item>
       </el-form>
       <span class="place">
@@ -23,11 +35,11 @@
       </span>
     </el-card>
     <el-card>
-      <el-table :data="userlist" border stripe>
-        <el-table-column label="姓名" prop="username"></el-table-column>
-        <el-table-column label="邮箱" prop="email"></el-table-column>
-        <el-table-column label="电话" prop="mobile"></el-table-column>
-        <el-table-column label="角色" prop="role_name"></el-table-column>
+      <el-table :data="courselist" border stripe>
+        <el-table-column label="课程号" prop="cid"></el-table-column>
+        <el-table-column label="课程名" prop="cname"></el-table-column>
+        <el-table-column label="开设学院" prop="dname"></el-table-column>
+        <el-table-column label="开设专业" prop="major"></el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <!-- 修改按钮 -->
@@ -41,6 +53,9 @@
           </template>
         </el-table-column>
       </el-table>
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pagenum"
+      :page-sizes="[2, 5, 10, 15]" :page-size="queryInfo.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
     </el-card>
   </div>
 </template>
@@ -56,7 +71,7 @@ export default {
         // 当前每页显示多少条数据
         pagesize: 15
       },
-      userlist: [],
+      classlist: [],
       total: 0,
       // 控制修改用户对话框的显示与隐藏
       editDialogVisible: false,
@@ -80,7 +95,6 @@ export default {
       // console.log(id)
       var sid = window.sessionStorage.getItem('id')
       const { data: res } = await this.$http.get('users/' + sid)
-
       if (res.meta.status !== 200) {
         return this.$message.error('查询用户信息失败！')
       }
@@ -95,8 +109,12 @@ export default {
         const { data: res } = await this.$http.put(
           'users/' + this.editForm.id,
           {
-            email: this.editForm.email,
-            mobile: this.editForm.mobile
+            name: this.editForm.sid,
+            age: this.editForm.age,
+            sex: this.editForm.age,
+            dname: this.editForm.dname,
+            major: this.editForm.major,
+            class: this.editForm.class
           }
         )
         if (res.meta.status !== 200) {
@@ -104,22 +122,20 @@ export default {
         }
         // 关闭对话框
         this.editDialogVisible = false
-        // 刷新数据列表
-        this.getClassList()
         // 提示修改成功
         this.$message.success('更新用户信息成功！')
       })
     },
-    async getClassList () {
+    async getCourseList () {
       var sid = window.sessionStorage.getItem('id')
-      const { data: res } = await this.$http.get('/classs' + sid, {
+      const res = await this.$http.get('/course' + sid, {
         params: this.queryInfo
       })
       console.log(res)
-      if (res.meta.status !== 200) {
+      if (res.status !== 200) {
         return this.$message.error('获取用户列表失败！')
       }
-      this.classlist = res.data.class
+      this.courselist = res.data.class
       this.total = res.data.total
       console.log(res)
     },
@@ -127,13 +143,13 @@ export default {
     handleSizeChange (newSize) {
     // console.log(newSize)
       this.queryInfo.pagesize = newSize
-      this.getClassList()
+      this.getCourseList()
     },
     // 监听 页码值 改变的事件
     handleCurrentChange (newPage) {
       console.log(newPage)
       this.queryInfo.pagenum = newPage
-      this.getClassList()
+      this.getCourseList()
     }
   }
 }
