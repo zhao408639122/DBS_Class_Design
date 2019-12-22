@@ -12,7 +12,6 @@ import Jiangcheng from './assets/components/Jiangcheng.vue'
 import Studentmessage from './assets/components/Studentmessage.vue'
 Vue.use(VueRouter)
 const routes = [
-  { path: '/', redirect: '/home' },
   { path: '/login', component: Login },
   {
     path: '/home',
@@ -34,10 +33,10 @@ const routes = [
 const router = new VueRouter({
   routes
 })
-router.beforeEach((to, from, next) => {
+/* router.beforeEach((to, from, next) => {
   if (to.path === '/login') return next()
   const tokenstr = window.sessionStorage.getItem('token')
   if (!tokenstr) return next('/login')
   next()
-})
+}) */
 export default router

@@ -11,8 +11,8 @@
     </div>
     <div class="am-u-sm-10 login-am-center">
       <el-form ref="loginformref" :model="form" :rules="rules" label-width="80px">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="form.user"></el-input>
+        <el-form-item label="用户名" prop="user_id">
+          <el-input v-model="form.user_id"></el-input>
         </el-form-item>
         <el-form-item label="密码" prop="password">
           <el-input v-model="form.password" type="password"></el-input>
@@ -30,8 +30,8 @@ export default {
   data () {
     return {
       form: {
-        username: 'admin',
-        password: '123456'
+        user_id: '',
+        password: ''
       },
       rules: {
         username: [
