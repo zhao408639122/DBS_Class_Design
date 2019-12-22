@@ -64,6 +64,7 @@ export default {
   },
   created () {
     this.getCourseList()
+    this.getCourseList2()
   },
   methods: {
     clearSelection () {
@@ -73,20 +74,19 @@ export default {
       this.multipleSelection = val
     },
     async getCourseList2 () {
-      let sid = window.sessionStorage.getItem('id')
-      const res = await this.$http.get('course/' + sid)
+      let sid = window.sessionStorage.getItem('sid')
+      const res = await this.$http.get('course/student/' + sid)
       console.log(res)
-      if (res.meta.status !== 200) {
+      if (res.status !== 200) {
         return this.$message.error('获取用户列表失败！')
       }
-      this.courselist2 = res.data.courselist
+      this.courselist2 = res.data
       this.total = res.data.total
     },
     async getCourseList () {
       const res = await this.$http.get('course', {
         params: this.queryInfo
       })
-      console.log(res)
       if (res.status !== 200) {
         return this.$message.error('获取用户列表失败！')
       }
@@ -106,16 +106,15 @@ export default {
       this.getCourseList()
     },
     toggleSelection () {
-        let sid = window.sessionStorage.getItem('id')
-        if (!valid) return
-        // 可以发起添加用户的网络请求
-        const res= await this.$http.post('course/' + sid, this.multipleSelection)
-        if (res.status !== 201) {
-          this.$message.error('选课失败！')
-        }
-        this.$message.success('选课成功！')
-        this.getCourseList2()
-        this.$refs.multipleTable.clearSelection()
+      let sid = window.sessionStorage.getItem('sid')
+      // 可以发起添加用户的网络请求
+      const res = this.$http.post('course/student/' + sid, this.multipleSelection)
+      if (res.status !== 201) {
+        this.$message.error('选课失败！')
+      }
+      this.$message.success('选课成功！')
+      this.getCourseList2()
+      this.$refs.multipleTable.clearSelection()
     }
   }
 }

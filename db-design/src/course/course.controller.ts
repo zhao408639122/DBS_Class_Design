@@ -2,6 +2,7 @@ import { Controller, Get, Query, Res, HttpStatus, Req, Post, Body, Put, Param, D
 import { CourseService } from './course.service';
 import { Request, Response } from 'express';
 import { course } from 'src/entity/course.entity';
+import { stu_course } from 'src/entity/stu_course.entity';
 
 @Controller('course')
 export class CourseController {
@@ -44,5 +45,14 @@ export class CourseController {
     @Get('/student/:id')
     public async QueryBySid(@Param('id') sid: string): Promise<course[]> {
         return this.courseService.QueryBySid(sid);
+    }
+
+    @Post('/student/:id')
+    public async AssignCourse(@Param('id') sid: string, @Body() Course: course[], @Res() res: Response): Promise<{}> {
+        for (let i = 0; i < Course.length; i++) {
+            await stu_course.AssignCourse(sid, Course[i].cid);
+        }
+        return res
+                .status(HttpStatus.CREATED).send()
     }
 }
