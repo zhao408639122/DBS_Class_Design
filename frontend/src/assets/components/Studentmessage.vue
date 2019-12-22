@@ -5,7 +5,7 @@
       <el-breadcrumb-item>学生管理</el-breadcrumb-item>
       <el-breadcrumb-item>学生信息</el-breadcrumb-item>
     </el-breadcrumb>
-    <el-card  style="float:left">
+    <el-card style="float:left">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px" >
          <el-row>
            <el-col :span="12">
@@ -68,6 +68,16 @@
         <el-button type="primary" @click="chooseClassById">修改</el-button>
       </span>
     </el-card>
+    <el-card>
+      <el-form :model="repuForm" ref="repuFormRef" label-width="70px" >
+        <el-form-item label="奖惩序号" >
+          <el-input v-model="repuForm.rid" disabled></el-input>
+        </el-form-item>
+          <el-form-item label="类型">
+            <el-input v-model="repuForm.type"></el-input>
+          </el-form-item>
+      </el-form>
+    </el-card>
   </div>
 </template>
 <script>
@@ -88,13 +98,8 @@ export default {
       editDialogVisible: false,
       // 查询到的用户信息对象
       editForm: {},
+      repuForm: {},
       editFormRules: {
-        email: [
-          { required: true, message: '请输入用户邮箱', trigger: 'blur' }
-        ],
-        mobile: [
-          { required: true, message: '请输入用户手机', trigger: 'blur' }
-        ]
       }
     }
   },
@@ -106,10 +111,19 @@ export default {
       // console.log(id)
       let sid = window.sessionStorage.getItem('sid')
       const res = await this.$http.get('users/' + sid)
-      if (res.meta.status !== 200) {
-        return this.$message.error('查询用户信息失败！')
+      if (res.status !== 200) {
+        return this.$message.error('查询学生信息失败！')
       }
       this.editForm = res.data
+    },
+    async getRepuMessage () {
+      // console.log(id)
+      let sid = window.sessionStorage.getItem('sid')
+      const res = await this.$http.get('repus/' + sid)
+      if (res.status !== 200) {
+        return this.$message.error('查询学生信息失败！')
+      }
+      this.repuForm = res.data
     },
     // 修改用户信息并提交
     editUserInfo () {
@@ -128,11 +142,11 @@ export default {
           }
         )
         if (res.meta.status !== 200) {
-          return this.$message.error('更新用户信息失败！')
+          return this.$message.error('更新学生信息失败！')
         }
         // 关闭对话框
         // 提示修改成功
-        this.$message.success('更新用户信息成功！')
+        this.$message.success('更新学生信息成功！')
       })
     },
     async getCourseList () {
@@ -142,7 +156,7 @@ export default {
       })
       console.log(res)
       if (res.status !== 200) {
-        return this.$message.error('获取用户列表失败！')
+        return this.$message.error('获取学生列表失败！')
       }
       this.courselist = res.data.class
       this.total = res.data.total

@@ -9,8 +9,8 @@
       <!-- 表格顶部区域-->
       <el-row :gutter="20">
         <el-col :span="8">
-          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getClassList">
-            <el-button slot="append" icon="el-icon-search" @click="getClassList"></el-button>
+          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getCourseList">
+            <el-button slot="append" icon="el-icon-search" @click="getCourseList"></el-button>
           </el-input>
         </el-col>
         <el-col :span="4">
@@ -18,22 +18,7 @@
         </el-col>
       </el-row>
       <!-- 表格区域-->
-      <el-table :data="classlist" border stripe>
-        <!-- <el-table-column type="index"></el-table-column>
-        <el-table-column label="姓名" prop="StudentName">
-        </el-table-column>
-        <el-table-column label="学号" prop="Sid">
-        </el-table-column>
-        <el-table-column label="年龄" prop="Age">
-        </el-table-column>
-        <el-table-column label="性别" prop="Sex">
-        </el-table-column>
-        <el-table-column label="学院" prop="Dname">
-        </el-table-column>
-        <el-table-column label="专业" prop="Major">
-        </el-table-column>
-        <el-table-column label="班级" prop="Class">
-        </el-table-column>-->
+      <el-table :data="courselist" border stripe>
         <el-table-column label="课程名" prop="cname"></el-table-column>
         <el-table-column label="课程号" prop="cid"></el-table-column>
         <el-table-column label="学院" prop="dname"></el-table-column>
@@ -115,7 +100,7 @@ export default {
         // 当前每页显示多少条数据
         pagesize: 15
       },
-      classlist: [],
+      courselist: [],
       total: 0,
       // 控制对话框显示与隐藏
       addDialogVisible: false,
@@ -139,18 +124,18 @@ export default {
     }
   },
   created () {
-    this.getClassList()
+    this.getCourseList()
   },
   methods: {
-    async getClassList () {
-      const { data: res } = await this.$http.get('users', {
+    async getCourseList () {
+      const res = await this.$http.get('course', {
         params: this.queryInfo
       })
       console.log(res)
-      if (res.meta.status !== 200) {
+      if (res.status !== 200) {
         return this.$message.error('获取用户列表失败！')
       }
-      this.classlist = res.data.users
+      this.courselist = res.data.courses
       this.total = res.data.total
       console.log(res)
     },
@@ -158,22 +143,22 @@ export default {
     handleSizeChange (newSize) {
     // console.log(newSize)
       this.queryInfo.pagesize = newSize
-      this.getClassList()
+      this.getCourseList()
     },
     // 监听 页码值 改变的事件
     handleCurrentChange (newPage) {
       console.log(newPage)
       this.queryInfo.pagenum = newPage
-      this.getClassList()
+      this.getCourseList()
     },
     // 点击按钮，添加新用户
     addUser () {
       this.$refs.addFormRef.validate(async valid => {
         if (!valid) return
         // 可以发起添加用户的网络请求
-        const { data: res } = await this.$http.post('class', this.addForm)
+        const res = await this.$http.post('course', this.addForm)
 
-        if (res.meta.status !== 201) {
+        if (res.status !== 201) {
           this.$message.error('添加用户失败！')
         }
         this.$message.success('添加用户成功！')
@@ -189,9 +174,9 @@ export default {
     },
     async showEditDialog (cid) {
       // console.log(id)
-      const { data: res } = await this.$http.get('class/' + cid)
+      const res = await this.$http.get('course/' + cid)
 
-      if (res.meta.status !== 200) {
+      if (res.status !== 200) {
         return this.$message.error('查询用户信息失败！')
       }
 
@@ -207,21 +192,21 @@ export default {
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return
         // 发起修改用户信息的数据请求
-        const { data: res } = await this.$http.put(
-          'class/' + this.editForm.cid,
+        const res = await this.$http.put(
+          'course/' + this.editForm.cid,
           {
             cname: this.editForm.cname,
             dname: this.editForm.dname,
             major: this.editForm.major
           }
         )
-        if (res.meta.status !== 200) {
+        if (res.status !== 200) {
           return this.$message.error('更新用户信息失败！')
         }
         // 关闭对话框
         this.editDialogVisible = false
         // 刷新数据列表
-        this.getClassList()
+        this.getCourseList()
         // 提示修改成功
         this.$message.success('更新用户信息成功！')
       })
@@ -244,15 +229,12 @@ export default {
       if (confirmResult !== 'confirm') {
         return this.$message.info('已取消删除')
       }
-
-      const { data: res } = await this.$http.delete('class/' + cid)
-
-      if (res.meta.status !== 200) {
+      const res = await this.$http.delete('course/' + cid)
+      if (res.status !== 200) {
         return this.$message.error('删除用户失败！')
       }
-
       this.$message.success('删除用户成功！')
-      this.getClassList()
+      this.getCourseList()
     }
   }
 }
