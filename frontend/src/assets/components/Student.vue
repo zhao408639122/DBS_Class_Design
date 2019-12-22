@@ -34,7 +34,7 @@
         </el-table-column>
         <el-table-column label="班级" prop="class">
         </el-table-column>
-        <el-table-column label="操作">
+        <el-table-column label="操作" width="180px">
           <template slot-scope="scope">
             <!-- 修改按钮 -->
             <el-tooltip effect="dark" content="修改学生信息" placement="top" :enterable="false">
@@ -91,11 +91,11 @@
     <!-- 修改用户的对话框 -->
     <el-dialog title="修改用户" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px">
-        <el-form-item label="姓名">
-          <el-input v-model="editForm.sname" disabled></el-input>
-        </el-form-item>
         <el-form-item label="学号" prop="sid">
-          <el-input v-model="editForm.sid"></el-input>
+          <el-input v-model="editForm.sid"  disabled></el-input>
+        </el-form-item>
+        <el-form-item label="姓名">
+          <el-input v-model="editForm.sname"></el-input>
         </el-form-item>
         <el-form-item label="年龄" prop="age">
           <el-input v-model="editForm.age"></el-input>
