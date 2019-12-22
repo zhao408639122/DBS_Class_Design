@@ -20,7 +20,7 @@
       <!-- 表格区域-->
       <el-table :data="userlist" border stripe>
         <el-table-column type="index"></el-table-column>
-        <el-table-column label="姓名" prop="name">
+        <el-table-column label="姓名" prop="sname">
         </el-table-column>
         <el-table-column label="学号" prop="sid">
         </el-table-column>
@@ -60,8 +60,8 @@
     <el-dialog title="添加学生" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
       <!-- 内容主体区域 -->
       <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px">
-        <el-form-item label="姓名" prop="name">
-          <el-input v-model="addForm.name"></el-input>
+        <el-form-item label="姓名" prop="sname">
+          <el-input v-model="addForm.sname"></el-input>
         </el-form-item>
         <el-form-item label="学号" prop="sid">
           <el-input v-model="addForm.sid"></el-input>
@@ -92,7 +92,7 @@
     <el-dialog title="修改用户" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px">
         <el-form-item label="姓名">
-          <el-input v-model="editForm.name" disabled></el-input>
+          <el-input v-model="editForm.sname" disabled></el-input>
         </el-form-item>
         <el-form-item label="学号" prop="sid">
           <el-input v-model="editForm.sid"></el-input>
@@ -126,6 +126,7 @@ export default {
     return {
       // 获取用户列表的参数对象
       queryInfo: {
+        query: '',
         // 当前的页数
         pagenum: 1,
         // 当前每页显示多少条数据
@@ -137,7 +138,7 @@ export default {
       addDialogVisible: false,
       // 添加用户的表单数据
       addForm: {
-        name: '',
+        sname: '',
         sid: '',
         age: '',
         sex: '',
@@ -169,7 +170,7 @@ export default {
       if (res.status !== 200) {
         return this.$message.error('获取用户列表失败！')
       }
-      this.userlist = res.data.users
+      this.userlist = res.data.user
       this.total = res.data.totalpage
       console.log(res)
     },
@@ -225,10 +226,10 @@ export default {
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return
         // 发起修改用户信息的数据请求
-        const data = await this.$http.put(
+        const res = await this.$http.put(
           'users/' + this.editForm.sid,
           {
-            name: this.editForm.name,
+            sname: this.editForm.sname,
             age: this.editForm.age,
             sex: this.editForm.sex,
             dname: this.editForm.dname,
@@ -236,6 +237,7 @@ export default {
             class: this.editForm.class
           }
         )
+        console.log(res)
         if (res.status !== 200) {
           return this.$message.error('更新用户信息失败！')
         }

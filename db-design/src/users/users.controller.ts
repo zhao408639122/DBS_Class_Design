@@ -10,28 +10,31 @@ export class UsersController {
 
 
     @Get()
-    public async GetStudnets(@Res() res :Response, @Query() query:{query: string, pagenum: number, pagesize: number}) : Promise<{}>{
-        const stu = await this.usersService.FuzzyQuery(query);
+    public async GetStudnets(@Res() res :Response, @Query() query:{pagenum: number, pagesize: number, query?: string}) : Promise<{}>{
+        let stu: any;
+        if (query === undefined){
+            stu = await this.usersService.FuzzyQuery({query: "", pagenum: query.pagenum, pagesize: query.pagesize})
+        } else {
+            stu = await this.usersService.FuzzyQuery(query);
+        }
         return res
                 .status(HttpStatus.OK)
                 .send(stu);
     }
 
     @Get('/all')
-    public async GetAllStudent(@Req() _req: Request, @Res() res: Response) {
-        const AllStudent: student[] = await this.usersService.findAll();
-        let StudentList: student[];
-        
+    public async GetAllStudent(@Res() res: Response, @Query() query: {pagenum: number, pagesize: number}): Promise<{}>{
+        const AllStudent = await this.usersService.FuzzyQuery({query: "", pagenum: query.pagenum, pagesize: query.pagesize});
         return res
                 .status(HttpStatus.OK)
-                .send(AllStudent);
+                .send({});
     }
 
     @Post()
     public async CreateStu(@Body() stu: student, @Res() res: Response, @Req() _req: Request): Promise<{}>{
         await this.usersService.CreateStu(stu);
         return res
-                .status(HttpStatus.OK);
+                .status(HttpStatus.CREATED).send();
     }
 
     // @Get(':sidQuery')
@@ -40,22 +43,22 @@ export class UsersController {
     // }
 
     @Get(':id')
-    public async FindBySid(@Param('sidinfo') sid: string): Promise<student> {
+    public async FindBySid(@Param('id') sid: string): Promise<student> {
         return await this.usersService.FindBySid(sid);
     } 
     
     @Put(':id')
-    public async ModifyStudent(@Body() stu: student, @Param() _sid: string, @Res() res: Response): Promise<{}> {
-        await this.usersService.ModifyStudent(stu);
+    public async ModifyStudent(@Body() stu: student, @Param('id') sid: string, @Res() res: Response): Promise<{}> {
+        await this.usersService.ModifyStudent(stu, sid);
         return res
-                .status(HttpStatus.OK);
+                .status(HttpStatus.OK).send();
     }
 
     @Delete(':id')
-    public async DeleteStu(@Param() sid: string, @Res() res: Response): Promise<{}> {
+    public async DeleteStu(@Param('id') sid: string, @Res() res: Response): Promise<{}> {
         await this.usersService.DeleteStu(sid);
         return res
-                .status(HttpStatus.OK);
+                .status(HttpStatus.OK).send();
     }
 
 }

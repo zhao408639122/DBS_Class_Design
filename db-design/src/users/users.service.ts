@@ -15,15 +15,17 @@ export class UsersService {
         return await student.findAll();
     }
     
-    public async FuzzyQuery(query : {query: string, pagenum: number, pagesize: number}) : Promise<{totalpage: number, pagenum: number, user: student[]}> {
-        const stu: student[] = await getRepository(student)
-        .createQueryBuilder("student")
-        .where("student.sid LIKE :param")
-        .setParameters({
-            param: '%'+ query.query +'%'
-//thestring是你读入的字符串
-        })
-        .getMany();
+    public async FuzzyQuery(query : {pagenum: number, pagesize: number, query?: string,}) : Promise<{totalpage: number, pagenum: number, user: student[]}> {
+        // {
+            const stu: student[] = await getRepository(student)
+            .createQueryBuilder("student")
+            .where("student.sid LIKE :param")
+            .setParameters({
+                param: '%'+ query.query +'%'
+                //thestring是你读入的字符串
+            })
+            .getMany();
+        // }
         let user: student[] = [];
         let totalpage = stu.length;
         let pagenum = query.pagenum;
@@ -45,12 +47,12 @@ export class UsersService {
          return await student.FindBySid(sid);
     }   
     
-    public async ModifyStudent(user: student): Promise<{}> {
+    public async ModifyStudent(user: student, sid: string): Promise<{}> {
         await getConnection()
             .createQueryBuilder()
             .update(student)
             .set({sname: user.sname, age: user.age, sex: user.sex, dname:user.dname, major:user.major, class:user.class })
-            .where("sid = :sid", { sid: user.sid})
+            .where("sid = :sid", { sid: sid})
             .execute();
         return Promise.resolve;
     }
