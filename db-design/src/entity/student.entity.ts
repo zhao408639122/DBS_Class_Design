@@ -1,6 +1,7 @@
-import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, PrimaryColumn } from "typeorm";
+import { BaseEntity, PrimaryGeneratedColumn, Column, Entity, PrimaryColumn, OneToMany } from "typeorm";
 import { AppError } from "../common/error/AppError";
 import { AppErrorTypeEnum } from "../common/error/AppErrorTypeEnum";
+import {stu_course} from "./stu_course.entity"
 
 @Entity()
 export class student extends BaseEntity {
@@ -24,6 +25,9 @@ export class student extends BaseEntity {
 
     @Column({length: 10,nullable: false})
     class: string;
+
+    @OneToMany(type=>stu_course,stuCourse=>stuCourse.Student)
+    stuCourses: stu_course[];
 
     public static async CreateStu(user: student) : Promise<student> {
         let u: student;

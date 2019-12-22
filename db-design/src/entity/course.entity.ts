@@ -1,4 +1,5 @@
-import{ BaseEntity, PrimaryGeneratedColumn, Column, Entity, PrimaryColumn } from "typeorm";
+import{ BaseEntity, PrimaryGeneratedColumn, Column, Entity, PrimaryColumn, OneToMany, OneToOne } from "typeorm";
+import{ stu_course} from "./stu_course.entity"
 @Entity()
 export class course extends BaseEntity {
     @PrimaryColumn({length: 20,nullable: false})
@@ -15,4 +16,7 @@ export class course extends BaseEntity {
 
     @Column({length: 30, nullable: false})
     teacher: string;
+
+    @OneToOne(type=>stu_course,courses=>courses.Course)
+    courses: stu_course;
 }
