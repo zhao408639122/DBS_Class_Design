@@ -27,7 +27,7 @@ export class DepsController {
     }
 
     @Put(':id')
-    public async MoidfyDepartment(@Body() deps: department, @Param('id') dname: string, @Res() res: Response) : Promise<{}> {
+    public async ModifyDepartment(@Body() deps: department, @Param('id') dname: string, @Res() res: Response) : Promise<{}> {
         await this.depsService.MoidfyDepartment(deps, dname);
         return res
                 .status(HttpStatus.OK).send();

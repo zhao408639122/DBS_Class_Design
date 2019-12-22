@@ -7,7 +7,12 @@
     </el-breadcrumb>
     <el-card>
       <!-- 表格顶部区域-->
-      <el-row :gutter="20">
+       <el-row :gutter="20">
+        <el-col :span="8">
+          <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getDepList">
+            <el-button slot="append" icon="el-icon-search" @click="getDepList"></el-button>
+          </el-input>
+        </el-col>
         <el-col :span="4">
           <el-button type="primary" @click="addDialogVisible = true">添加信息</el-button>
         </el-col>
@@ -74,6 +79,7 @@ export default {
     return {
       // 获取用户列表的参数对象
       queryInfo: {
+        query: '',
         // 当前的页数
         pagenum: 1,
         // 当前每页显示多少条数据
