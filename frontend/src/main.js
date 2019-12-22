@@ -17,11 +17,11 @@ if (process.env.NODE_ENV === 'development') {
   ROOT = 'http://127.0.0.1:8888/api/private/v1/'// 生产环境下的地址
 } */
 axios.defaults.baseURL = 'http://127.0.0.1:3000/'
-axios.interceptors.request.use(config => {
+/* axios.interceptors.request.use(config => {
   config.headers.Authorization = window.sessionStorage.getItem('token')
   // 在最后必须 return config
   return config
-})
+}) */
 Vue.prototype.$http = axios
 new Vue({
   router,

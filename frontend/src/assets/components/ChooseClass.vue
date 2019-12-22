@@ -106,17 +106,16 @@ export default {
       this.getCourseList()
     },
     toggleSelection () {
-      this.$refs.multipleTable.validate(async valid => {
         let sid = window.sessionStorage.getItem('id')
         if (!valid) return
         // 可以发起添加用户的网络请求
-        const { data: res } = await this.$http.post('course/' + sid, this.multipleSelection)
-        if (res.meta.status !== 201) {
+        const res= await this.$http.post('course/' + sid, this.multipleSelection)
+        if (res.status !== 201) {
           this.$message.error('选课失败！')
         }
         this.$message.success('选课成功！')
         this.getCourseList2()
-      })
+        this.$refs.multipleTable.clearSelection()
     }
   }
 }
