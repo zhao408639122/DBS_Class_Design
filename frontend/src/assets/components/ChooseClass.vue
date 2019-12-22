@@ -1,26 +1,46 @@
 <template>
 <div>
-  <el-table ref="multipleTable" :data="tableData" tooltip-effect="dark"
-  style="width: 100%" @selection-change="handleSelectionChange">
-    <el-table-column type="selection" width="55">
-    </el-table-column>
-    <el-table-column label="课程序号" width="120">
-      <template slot-scope="scope">{{ scope.row.cid }}</template>
-    </el-table-column>
-    <el-table-column prop="name" label="姓名" width="120">
-    </el-table-column>
-    <el-table-column prop="address" label="地址" show-overflow-tooltip>
-    </el-table-column>
-  </el-table>
-  <div class="samerow">
-    <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pagenum"
-      :page-sizes="[2, 5, 10, 15]" :page-size="queryInfo.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="total">
-    </el-pagination>
-    <div style="margin-top: 15px">
-      <el-button @click="toggleSelection()">确定</el-button>
-      <el-button @click="clearSelection()">取消</el-button>
+  <el-card class="weizhi">
+    <span class="center">课表信息</span>
+      <el-table :data="courselist2" border stripe>
+        <el-table-column label="课程号" prop="cid"></el-table-column>
+        <el-table-column label="课程名" prop="cname"></el-table-column>
+        <el-table-column label="开设学院" prop="dname"></el-table-column>
+        <el-table-column label="开设专业" prop="major"></el-table-column>
+      </el-table>
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pagenum"
+      layout="total, prev, pager, next" :total="total">
+      </el-pagination>
+  </el-card>
+  <el-card>
+    <el-row :gutter="20">
+      <el-col :span="8">
+        <el-input placeholder="请输入内容" v-model="queryInfo.query" clearable @clear="getCourseList">
+          <el-button slot="append" icon="el-icon-search" @click="getCourseList"></el-button>
+        </el-input>
+      </el-col>
+      <el-col :span="4">
+        <el-button type="primary" @click="addDialogVisible = true">添加课程</el-button>
+      </el-col>
+    </el-row>
+    <el-table ref="multipleTable" :data="courselist" tooltip-effect="dark"
+    style="width: 100%" @selection-change="handleSelectionChange">
+      <el-table-column type="selection" width="55"></el-table-column>
+      <el-table-column label="课程号" prop="cid"></el-table-column>
+      <el-table-column label="课程名" prop="cname"></el-table-column>
+      <el-table-column label="学院" prop="dname"></el-table-column>
+      <el-table-column label="专业" prop="major"></el-table-column>
+    </el-table>
+    <div class="samerow">
+      <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pagenum"
+        :page-sizes="[2, 5, 10, 15]" :page-size="queryInfo.pagesize" layout="total, sizes, prev, pager, next, jumper" :total="total">
+      </el-pagination>
+      <div style="margin-top: 15px">
+        <el-button @click="toggleSelection()">选课</el-button>
+        <el-button @click="clearSelection()">取消</el-button>
+      </div>
     </div>
-  </div>
+  </el-card>
 
 </div>
 </template>
@@ -35,12 +55,17 @@ export default {
         // 当前每页显示多少条数据
         pagesize: 15
       },
-      classlist: {
+      courselist: {
         cid: '',
         cname: '',
         credit: '',
-        dname: '',
-        tname: ''
+        dname: ''
+      },
+      courselist2: {
+        cid: '',
+        cname: '',
+        credit: '',
+        dname: ''
       },
       multipleSelection: []
     }
@@ -49,10 +74,24 @@ export default {
     clearSelection () {
       this.$refs.multipleTable.clearSelection()
     },
+    created () {
+      this.getCourseList()
+    },
     handleSelectionChange (val) {
       this.multipleSelection = val
     },
-    async getClassList () {
+    async getCourseList2 () {
+      let sid = window.sessionStorage.getItem('id')
+      const { data: res } = await this.$http.get('class/' + sid)
+      console.log(res)
+      if (res.meta.status !== 200) {
+        return this.$message.error('获取用户列表失败！')
+      }
+      this.courselist2 = res.data.courselist2
+      this.total = res.data.total
+      console.log(res)
+    },
+    async getCourseList () {
       const { data: res } = await this.$http.get('class', {
         params: this.queryInfo
       })
@@ -60,7 +99,7 @@ export default {
       if (res.meta.status !== 200) {
         return this.$message.error('获取用户列表失败！')
       }
-      this.classlist = res.data.classlist
+      this.courselist = res.data.courselist
       this.total = res.data.total
       console.log(res)
     },
@@ -68,26 +107,25 @@ export default {
     handleSizeChange (newSize) {
     // console.log(newSize)
       this.queryInfo.pagesize = newSize
-      this.getClassList()
+      this.getCourseList()
     },
     // 监听 页码值 改变的事件
     handleCurrentChange (newPage) {
       console.log(newPage)
       this.queryInfo.pagenum = newPage
-      this.getClassList()
+      this.getCourseList()
     },
     toggleSelection () {
       this.$refs.multipleTable.validate(async valid => {
+        let sid = window.sessionStorage.getItem('id')
         if (!valid) return
         // 可以发起添加用户的网络请求
-        const { data: res } = await this.$http.post('class', this.multipleSelection)
+        const { data: res } = await this.$http.post('class/' + sid, this.multipleSelection)
         if (res.meta.status !== 201) {
           this.$message.error('添加用户失败！')
         }
         this.$message.success('添加用户成功！')
-        // 隐藏添加用户的对话框
-        this.addDialogVisible = false
-        // 重新获取用户列表数据
+        this.getCourseList2()
       })
     }
   }
@@ -97,5 +135,14 @@ export default {
 .samerow {
   display: flex;
   justify-content: space-between;
+}
+.center{
+  display: block;
+  text-align: center;
+}
+.weizhi{
+  margin-left:300px;
+  width:500px;
+  margin-bottom: 50px;
 }
 </style>

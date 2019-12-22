@@ -49,7 +49,7 @@
             <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
             </el-tooltip>
             <!-- 选课按钮 -->
-            <el-tooltip effect="dark" content="学生选课" placement="top" :enterable="false">
+            <el-tooltip effect="dark" content="学生信息" placement="top" :enterable="false">
             <el-button type="danger" icon="el-icon-setting" size="mini" @click="chooseClassById(scope.row.id)"></el-button>
             </el-tooltip>
           </template>
@@ -312,7 +312,7 @@ export default {
     },
     async chooseClassById (id) {
       window.sessionStorage.setItem('sid', id)
-      this.$router.push('ChooseClass')
+      this.$router.push('Studentmessage')
     }
   }
 }
