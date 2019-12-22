@@ -19,38 +19,34 @@
       </el-row>
       <!-- 表格区域-->
       <el-table :data="userlist" border stripe>
-        <!-- <el-table-column type="index"></el-table-column>
-        <el-table-column label="姓名" prop="StudentName">
+        <el-table-column type="index"></el-table-column>
+        <el-table-column label="姓名" prop="name">
         </el-table-column>
-        <el-table-column label="学号" prop="Sid">
+        <el-table-column label="学号" prop="sid">
         </el-table-column>
-        <el-table-column label="年龄" prop="Age">
+        <el-table-column label="年龄" prop="age">
         </el-table-column>
-        <el-table-column label="性别" prop="Sex">
+        <el-table-column label="性别" prop="sex">
         </el-table-column>
-        <el-table-column label="学院" prop="Dname">
+        <el-table-column label="学院" prop="dname">
         </el-table-column>
-        <el-table-column label="专业" prop="Major">
+        <el-table-column label="专业" prop="major">
         </el-table-column>
-        <el-table-column label="班级" prop="Class">
-        </el-table-column>-->
-        <el-table-column label="姓名" prop="username"></el-table-column>
-        <el-table-column label="邮箱" prop="email"></el-table-column>
-        <el-table-column label="电话" prop="mobile"></el-table-column>
-        <el-table-column label="角色" prop="role_name"></el-table-column>
+        <el-table-column label="班级" prop="class">
+        </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
             <!-- 修改按钮 -->
             <el-tooltip effect="dark" content="修改学生信息" placement="top" :enterable="false">
-            <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.id)"></el-button>
+            <el-button type="primary" icon="el-icon-edit" size="mini" @click="showEditDialog(scope.row.sid)"></el-button>
             </el-tooltip>
             <!-- 删除按钮 -->
             <el-tooltip effect="dark" content="删除学生" placement="top" :enterable="false">
-            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.id)"></el-button>
+            <el-button type="danger" icon="el-icon-delete" size="mini" @click="removeUserById(scope.row.sid)"></el-button>
             </el-tooltip>
             <!-- 选课按钮 -->
             <el-tooltip effect="dark" content="学生信息" placement="top" :enterable="false">
-            <el-button type="danger" icon="el-icon-setting" size="mini" @click="chooseClassById(scope.row.id)"></el-button>
+            <el-button type="danger" icon="el-icon-setting" size="mini" @click="chooseClassById(scope.row.sid)"></el-button>
             </el-tooltip>
           </template>
         </el-table-column>
@@ -64,17 +60,26 @@
     <el-dialog title="添加学生" :visible.sync="addDialogVisible" width="50%" @close="addDialogClosed">
       <!-- 内容主体区域 -->
       <el-form :model="addForm" :rules="addFormRules" ref="addFormRef" label-width="70px">
-        <el-form-item label="用户名" prop="username">
-          <el-input v-model="addForm.username"></el-input>
+        <el-form-item label="姓名" prop="name">
+          <el-input v-model="addForm.name"></el-input>
         </el-form-item>
-        <el-form-item label="密码" prop="password">
-          <el-input v-model="addForm.password"></el-input>
+        <el-form-item label="学号" prop="sid">
+          <el-input v-model="addForm.sid"></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="addForm.email"></el-input>
+        <el-form-item label="年龄" prop="age">
+          <el-input v-model="addForm.age"></el-input>
         </el-form-item>
-        <el-form-item label="手机" prop="mobile">
-          <el-input v-model="addForm.mobile"></el-input>
+        <el-form-item label="性别" prop="sex">
+          <el-input v-model="addForm.sex"></el-input>
+        </el-form-item>
+        <el-form-item label="学院" prop="dname">
+          <el-input v-model="addForm.dname"></el-input>
+        </el-form-item>
+        <el-form-item label="专业" prop="major">
+          <el-input v-model="addForm.major"></el-input>
+        </el-form-item>
+        <el-form-item label="班级" prop="class">
+          <el-input v-model="addForm.class"></el-input>
         </el-form-item>
       </el-form>
       <!-- 底部区域 -->
@@ -86,14 +91,26 @@
     <!-- 修改用户的对话框 -->
     <el-dialog title="修改用户" :visible.sync="editDialogVisible" width="50%" @close="editDialogClosed">
       <el-form :model="editForm" :rules="editFormRules" ref="editFormRef" label-width="70px">
-        <el-form-item label="用户名">
-          <el-input v-model="editForm.username" disabled></el-input>
+        <el-form-item label="姓名">
+          <el-input v-model="editForm.name" disabled></el-input>
         </el-form-item>
-        <el-form-item label="邮箱" prop="email">
-          <el-input v-model="editForm.email"></el-input>
+        <el-form-item label="学号" prop="sid">
+          <el-input v-model="editForm.sid"></el-input>
         </el-form-item>
-        <el-form-item label="手机" prop="mobile">
-          <el-input v-model="editForm.mobile"></el-input>
+        <el-form-item label="年龄" prop="age">
+          <el-input v-model="editForm.age"></el-input>
+        </el-form-item>
+        <el-form-item label="性别" prop="sex">
+          <el-input v-model="editForm.sex"></el-input>
+        </el-form-item>
+        <el-form-item label="学院" prop="dname">
+          <el-input v-model="editForm.dname"></el-input>
+        </el-form-item>
+        <el-form-item label="专业" prop="major">
+          <el-input v-model="editForm.major"></el-input>
+        </el-form-item>
+        <el-form-item label="班级" prop="class">
+          <el-input v-model="editForm.class"></el-input>
         </el-form-item>
       </el-form>
       <span slot="footer" class="dialog-footer">
@@ -106,30 +123,6 @@
 <script>
 export default {
   data () {
-    // 验证邮箱的规则
-    var checkEmail = (rule, value, cb) => {
-      // 验证邮箱的正则表达式
-      const regEmail = /^([a-zA-Z0-9_-])+@([a-zA-Z0-9_-])+(\.[a-zA-Z0-9_-])+/
-
-      if (regEmail.test(value)) {
-        // 合法的邮箱
-        return cb()
-      }
-
-      cb(new Error('请输入合法的邮箱'))
-    }
-
-    // 验证手机号的规则
-    var checkMobile = (rule, value, cb) => {
-      // 验证手机号的正则表达式
-      const regMobile = /^(0|86|17951)?(13[0-9]|15[012356789]|17[678]|18[0-9]|14[57])[0-9]{8}$/
-
-      if (regMobile.test(value)) {
-        return cb()
-      }
-
-      cb(new Error('请输入合法的手机号'))
-    }
     return {
       // 获取用户列表的参数对象
       queryInfo: {
@@ -144,39 +137,16 @@ export default {
       addDialogVisible: false,
       // 添加用户的表单数据
       addForm: {
-        username: '',
-        password: '',
-        email: '',
-        mobile: ''
+        name: '',
+        sid: '',
+        age: '',
+        sex: '',
+        dname: '',
+        major: '',
+        class: ''
       },
       // 添加表单的验证规则对象
       addFormRules: {
-        username: [
-          { required: true, message: '请输入用户名', trigger: 'blur' },
-          {
-            min: 3,
-            max: 10,
-            message: '用户名的长度在3~10个字符之间',
-            trigger: 'blur'
-          }
-        ],
-        password: [
-          { required: true, message: '请输入密码', trigger: 'blur' },
-          {
-            min: 6,
-            max: 15,
-            message: '用户名的长度在6~15个字符之间',
-            trigger: 'blur'
-          }
-        ],
-        email: [
-          { required: true, message: '请输入邮箱', trigger: 'blur' },
-          { validator: checkEmail, trigger: 'blur' }
-        ],
-        mobile: [
-          { required: true, message: '请输入手机号', trigger: 'blur' },
-          { validator: checkMobile, trigger: 'blur' }
-        ]
       },
       // 控制修改用户对话框的显示与隐藏
       editDialogVisible: false,
@@ -184,14 +154,6 @@ export default {
       editForm: {},
       // 修改表单的验证规则对象
       editFormRules: {
-        email: [
-          { required: true, message: '请输入用户邮箱', trigger: 'blur' },
-          { validator: checkEmail, trigger: 'blur' }
-        ],
-        mobile: [
-          { required: true, message: '请输入用户手机', trigger: 'blur' },
-          { validator: checkMobile, trigger: 'blur' }
-        ]
       }
     }
   },
@@ -200,15 +162,15 @@ export default {
   },
   methods: {
     async getUserList () {
-      const { data: res } = await this.$http.get('users', {
+      const res = await this.$http.get('users', {
         params: this.queryInfo
       })
       console.log(res)
-      if (res.meta.status !== 200) {
+      if (res.status !== 200) {
         return this.$message.error('获取用户列表失败！')
       }
       this.userlist = res.data.users
-      this.total = res.data.total
+      this.total = res.data.totalpage
       console.log(res)
     },
     // 监听 pagesize 改变的事件
@@ -228,9 +190,9 @@ export default {
       this.$refs.addFormRef.validate(async valid => {
         if (!valid) return
         // 可以发起添加用户的网络请求
-        const { data: res } = await this.$http.post('users', this.addForm)
+        const res = await this.$http.post('users', this.addForm)
 
-        if (res.meta.status !== 201) {
+        if (res.status !== 201) {
           this.$message.error('添加用户失败！')
         }
         this.$message.success('添加用户成功！')
@@ -246,12 +208,11 @@ export default {
     },
     async showEditDialog (id) {
       // console.log(id)
-      const { data: res } = await this.$http.get('users/' + id)
+      const res = await this.$http.get('users/' + id)
 
-      if (res.meta.status !== 200) {
+      if (res.status !== 200) {
         return this.$message.error('查询用户信息失败！')
       }
-
       this.editForm = res.data
       this.editDialogVisible = true
     },
@@ -264,14 +225,18 @@ export default {
       this.$refs.editFormRef.validate(async valid => {
         if (!valid) return
         // 发起修改用户信息的数据请求
-        const { data: res } = await this.$http.put(
-          'users/' + this.editForm.id,
+        const data = await this.$http.put(
+          'users/' + this.editForm.sid,
           {
-            email: this.editForm.email,
-            mobile: this.editForm.mobile
+            name: this.editForm.name,
+            age: this.editForm.age,
+            sex: this.editForm.sex,
+            dname: this.editForm.dname,
+            major: this.editForm.major,
+            class: this.editForm.class
           }
         )
-        if (res.meta.status !== 200) {
+        if (res.status !== 200) {
           return this.$message.error('更新用户信息失败！')
         }
         // 关闭对话框
@@ -301,9 +266,9 @@ export default {
         return this.$message.info('已取消删除')
       }
 
-      const { data: res } = await this.$http.delete('users/' + id)
+      const res = await this.$http.delete('users/' + id)
 
-      if (res.meta.status !== 200) {
+      if (res.status !== 200) {
         return this.$message.error('删除用户失败！')
       }
 
