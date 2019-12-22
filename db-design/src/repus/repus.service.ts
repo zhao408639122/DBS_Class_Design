@@ -15,7 +15,7 @@ export class RepusService {
         .setParameters({
             param: '%' + query.query + '%'
         })
-        .getMany()
+        .getMany();
 
         let list: reward_punish[] = [];
         let totalpage = repus.length;
@@ -43,7 +43,7 @@ export class RepusService {
             .createQueryBuilder()
             .update(reward_punish)
             .set({type: repus.type})
-            .where("rid =:rid", {rid: rid})
+            .where("rid = :rid", {rid: rid})
             .execute();
         return Promise.resolve;
     }

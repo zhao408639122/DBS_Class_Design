@@ -37,7 +37,7 @@ export class DepsService {
         return await department.FindByDname(dname);
     }
 
-    public async MoidfyDepartment(Department: department, dname: string): Promise<{}> {
+    public async ModifyDepartment(Department: department, dname: string): Promise<{}> {
         await getConnection()
             .createQueryBuilder()
             .update(department)
