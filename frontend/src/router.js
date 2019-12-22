@@ -12,6 +12,7 @@ import Jiangcheng from './assets/components/Jiangcheng.vue'
 import Studentmessage from './assets/components/Studentmessage.vue'
 Vue.use(VueRouter)
 const routes = [
+  { path: '/', component: Login },
   { path: '/login', component: Login },
   {
     path: '/home',

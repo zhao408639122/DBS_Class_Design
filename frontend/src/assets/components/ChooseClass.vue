@@ -7,6 +7,8 @@
         <el-table-column label="课程名" prop="cname"></el-table-column>
         <el-table-column label="开设学院" prop="dname"></el-table-column>
         <el-table-column label="开设专业" prop="major"></el-table-column>
+        <el-table-column label="学分" prop="credit"></el-table-column>
+        <el-table-column label="教师" prop="teacher"></el-table-column>
       </el-table>
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pagenum"
       layout="total, prev, pager, next" :total="total">
@@ -19,9 +21,6 @@
           <el-button slot="append" icon="el-icon-search" @click="getCourseList"></el-button>
         </el-input>
       </el-col>
-      <el-col :span="4">
-        <el-button type="primary" @click="addDialogVisible = true">添加课程</el-button>
-      </el-col>
     </el-row>
     <el-table ref="multipleTable" :data="courselist" tooltip-effect="dark"
     style="width: 100%" @selection-change="handleSelectionChange">
@@ -30,6 +29,8 @@
       <el-table-column label="课程名" prop="cname"></el-table-column>
       <el-table-column label="学院" prop="dname"></el-table-column>
       <el-table-column label="专业" prop="major"></el-table-column>
+      <el-table-column label="学分" prop="credit"></el-table-column>
+      <el-table-column label="教师" prop="teacher"></el-table-column>
     </el-table>
     <div class="samerow">
       <el-pagination @size-change="handleSizeChange" @current-change="handleCurrentChange" :current-page="queryInfo.pagenum"
@@ -58,14 +59,18 @@ export default {
       courselist: {
         cid: '',
         cname: '',
+        dname: '',
+        major: '',
         credit: '',
-        dname: ''
+        teacher: ''
       },
       courselist2: {
         cid: '',
         cname: '',
+        dname: '',
+        major: '',
         credit: '',
-        dname: ''
+        teacher: ''
       },
       multipleSelection: []
     }
@@ -82,17 +87,17 @@ export default {
     },
     async getCourseList2 () {
       let sid = window.sessionStorage.getItem('id')
-      const { data: res } = await this.$http.get('class/' + sid)
+      const res = await this.$http.get('course/' + sid)
       console.log(res)
       if (res.meta.status !== 200) {
         return this.$message.error('获取用户列表失败！')
       }
-      this.courselist2 = res.data.courselist2
+      this.courselist2 = res.data.courselist
       this.total = res.data.total
       console.log(res)
     },
     async getCourseList () {
-      const { data: res } = await this.$http.get('class', {
+      const res = await this.$http.get('course', {
         params: this.queryInfo
       })
       console.log(res)
@@ -120,11 +125,11 @@ export default {
         let sid = window.sessionStorage.getItem('id')
         if (!valid) return
         // 可以发起添加用户的网络请求
-        const { data: res } = await this.$http.post('class/' + sid, this.multipleSelection)
+        const { data: res } = await this.$http.post('course/' + sid, this.multipleSelection)
         if (res.meta.status !== 201) {
-          this.$message.error('添加用户失败！')
+          this.$message.error('选课失败！')
         }
-        this.$message.success('添加用户成功！')
+        this.$message.success('选课成功！')
         this.getCourseList2()
       })
     }
