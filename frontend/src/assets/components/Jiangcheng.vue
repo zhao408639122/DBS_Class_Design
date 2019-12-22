@@ -175,7 +175,7 @@ export default {
         if (!valid) return
         // 发起修改用户信息的数据请求
         const res = await this.$http.put(
-          'repus/' + this.editForm.id,
+          'repus/' + this.editForm.rid,
           {
             type: this.editForm.type
           }

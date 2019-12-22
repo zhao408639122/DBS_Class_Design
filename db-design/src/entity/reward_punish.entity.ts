@@ -16,7 +16,7 @@ export class reward_punish extends BaseEntity {
             throw new AppError(AppErrorTypeEnum.USER_EXISTS);
         } else {
             u = new reward_punish();
-            Object.assign(u, reward_punish);
+            Object.assign(u, repus);
             return await reward_punish.save(u);
         }
     }
