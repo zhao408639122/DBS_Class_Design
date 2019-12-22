@@ -148,7 +148,6 @@ export default {
         if (!valid) return
         // 可以发起添加用户的网络请求
         const res = await this.$http.post('deps', this.addForm)
-
         if (res.status !== 201) {
           this.$message.error('添加用户失败！')
         }
@@ -189,6 +188,7 @@ export default {
             building: this.editForm.building
           }
         )
+        console.log(res)
         if (res.status !== 200) {
           return this.$message.error('更新学院信息失败！')
         }

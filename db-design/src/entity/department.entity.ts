@@ -24,7 +24,7 @@ export class department extends BaseEntity {
         }
     }
 
-    public static async FindBySid(dname: string): Promise<department> {
+    public static async FindByDname(dname: string): Promise<department> {
         var u : department = await department.findOne({dname: dname});
         if (!u) {
             throw new AppError(AppErrorTypeEnum.USER_NOT_FOUND);
