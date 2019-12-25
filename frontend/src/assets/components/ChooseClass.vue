@@ -78,6 +78,7 @@ export default {
   },
   created () {
     this.getCourseList()
+    this.getCourseList2()
   },
   methods: {
     clearSelection () {
@@ -87,20 +88,19 @@ export default {
       this.multipleSelection = val
     },
     async getCourseList2 () {
-      const sid = window.sessionStorage.getItem("id")
-      const res = await this.$http.get("course/" + sid)
+      let sid = window.sessionStorage.getItem("sid")
+      const res = await this.$http.get("course/student/" + sid)
       console.log(res)
-      if (res.meta.status !== 200) {
+      if (res.status !== 200) {
         return this.$message.error("获取用户列表失败！")
       }
-      this.courselist2 = res.data.courselist
+      this.courselist2 = res.data
       this.total = res.data.total
     },
     async getCourseList () {
       const res = await this.$http.get("course", {
         params: this.queryInfo
       })
-      console.log(res)
       if (res.status !== 200) {
         return this.$message.error("获取用户列表失败！")
       }

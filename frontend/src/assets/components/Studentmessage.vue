@@ -70,16 +70,6 @@
         <el-button type="primary" @click="chooseClassById">修改</el-button>
       </span>
     </el-card>
-    <el-card>
-      <el-form :model="repuForm" ref="repuFormRef" label-width="70px" >
-        <el-form-item label="奖惩序号" >
-          <el-input v-model="repuForm.rid" disabled></el-input>
-        </el-form-item>
-          <el-form-item label="类型">
-            <el-input v-model="repuForm.type"></el-input>
-          </el-form-item>
-      </el-form>
-    </el-card>
   </div>
 </template>
 <script>
@@ -94,7 +84,7 @@ export default {
         // 当前每页显示多少条数据
         pagesize: 15
       },
-      classlist: [],
+      courselist: [],
       total: 0,
       // 控制修改用户对话框的显示与隐藏
       editDialogVisible: false,
@@ -107,6 +97,7 @@ export default {
   },
   created () {
     this.showStudentMessage()
+    this.getCourseList()
   },
   methods: {
     async showStudentMessage () {
@@ -152,15 +143,13 @@ export default {
       })
     },
     async getCourseList () {
-      const sid = window.sessionStorage.getItem("id")
-      const res = await this.$http.get("/course" + sid, {
-        params: this.queryInfo
-      })
+      var sid = window.sessionStorage.getItem("sid")
+      const res = await this.$http.get("/course/student/" + sid)
       console.log(res)
       if (res.status !== 200) {
         return this.$message.error("获取学生列表失败！")
       }
-      this.courselist = res.data.class
+      this.courselist = res.data
       this.total = res.data.total
       console.log(res)
     },
