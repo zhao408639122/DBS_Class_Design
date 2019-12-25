@@ -88,7 +88,7 @@ export default {
     return {
       // 获取课程列表的参数对象
       queryInfo: {
-        query: '',
+        query: "",
         // 当前的页数
         pagenum: 1,
         // 当前每页显示多少条数据
@@ -111,29 +111,29 @@ export default {
   methods: {
     async showStudentMessage () {
       // console.log(id)
-      let sid = window.sessionStorage.getItem('sid')
-      const res = await this.$http.get('users/' + sid)
+      const sid = window.sessionStorage.getItem("sid")
+      const res = await this.$http.get("users/" + sid)
       if (res.status !== 200) {
-        return this.$message.error('查询学生信息失败！')
+        return this.$message.error("查询学生信息失败！")
       }
       this.editForm = res.data
     },
     async getRepuMessage () {
       // console.log(id)
-      let sid = window.sessionStorage.getItem('sid')
-      const res = await this.$http.get('repus/' + sid)
+      const sid = window.sessionStorage.getItem("sid")
+      const res = await this.$http.get("repus/" + sid)
       if (res.status !== 200) {
-        return this.$message.error('查询学生信息失败！')
+        return this.$message.error("查询学生信息失败！")
       }
       this.repuForm = res.data
     },
     // 修改用户信息并提交
     editUserInfo () {
-      this.$refs.editFormRef.validate(async valid => {
+      this.$refs.editFormRef.validate(async (valid) => {
         if (!valid) return
         // 发起修改用户信息的数据请求
         const { data: res } = await this.$http.put(
-          'users/' + this.editForm.sid,
+          "users/" + this.editForm.sid,
           {
             sname: this.editForm.sname,
             age: this.editForm.age,
@@ -144,21 +144,21 @@ export default {
           }
         )
         if (res.meta.status !== 200) {
-          return this.$message.error('更新学生信息失败！')
+          return this.$message.error("更新学生信息失败！")
         }
         // 关闭对话框
         // 提示修改成功
-        this.$message.success('更新学生信息成功！')
+        this.$message.success("更新学生信息成功！")
       })
     },
     async getCourseList () {
-      var sid = window.sessionStorage.getItem('id')
-      const res = await this.$http.get('/course' + sid, {
+      const sid = window.sessionStorage.getItem("id")
+      const res = await this.$http.get("/course" + sid, {
         params: this.queryInfo
       })
       console.log(res)
       if (res.status !== 200) {
-        return this.$message.error('获取学生列表失败！')
+        return this.$message.error("获取学生列表失败！")
       }
       this.courselist = res.data.class
       this.total = res.data.total
@@ -177,7 +177,7 @@ export default {
       this.getCourseList()
     },
     async chooseClassById () {
-      this.$router.push('chooseclass')
+      this.$router.push("chooseclass")
     }
   }
 }

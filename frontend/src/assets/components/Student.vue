@@ -126,7 +126,7 @@ export default {
     return {
       // 获取用户列表的参数对象
       queryInfo: {
-        query: '',
+        query: "",
         // 当前的页数
         pagenum: 1,
         // 当前每页显示多少条数据
@@ -138,13 +138,13 @@ export default {
       addDialogVisible: false,
       // 添加用户的表单数据
       addForm: {
-        sname: '',
-        sid: '',
-        age: '',
-        sex: '',
-        dname: '',
-        major: '',
-        class: ''
+        sname: "",
+        sid: "",
+        age: "",
+        sex: "",
+        dname: "",
+        major: "",
+        class: ""
       },
       // 添加表单的验证规则对象
       addFormRules: {
@@ -163,12 +163,12 @@ export default {
   },
   methods: {
     async getUserList () {
-      const res = await this.$http.get('users', {
+      const res = await this.$http.get("users", {
         params: this.queryInfo
       })
       console.log(res)
       if (res.status !== 200) {
-        return this.$message.error('获取用户列表失败！')
+        return this.$message.error("获取用户列表失败！")
       }
       this.userlist = res.data.user
       this.total = res.data.totalpage
@@ -191,12 +191,12 @@ export default {
       this.$refs.addFormRef.validate(async valid => {
         if (!valid) return
         // 可以发起添加用户的网络请求
-        const res = await this.$http.post('users', this.addForm)
+        const res = await this.$http.post("users", this.addForm)
 
         if (res.status !== 201) {
-          this.$message.error('添加用户失败！')
+          this.$message.error("添加用户失败！")
         }
-        this.$message.success('添加用户成功！')
+        this.$message.success("添加用户成功！")
         // 隐藏添加用户的对话框
         this.addDialogVisible = false
         // 重新获取用户列表数据
@@ -209,10 +209,10 @@ export default {
     },
     async showEditDialog (id) {
       // console.log(id)
-      const res = await this.$http.get('users/' + id)
+      const res = await this.$http.get("users/" + id)
 
       if (res.status !== 200) {
-        return this.$message.error('查询用户信息失败！')
+        return this.$message.error("查询用户信息失败！")
       }
       this.editForm = res.data
       this.editDialogVisible = true
@@ -227,7 +227,7 @@ export default {
         if (!valid) return
         // 发起修改用户信息的数据请求
         const res = await this.$http.put(
-          'users/' + this.editForm.sid,
+          "users/" + this.editForm.sid,
           {
             sname: this.editForm.sname,
             age: this.editForm.age,
@@ -239,47 +239,47 @@ export default {
         )
         console.log(res)
         if (res.status !== 200) {
-          return this.$message.error('更新用户信息失败！')
+          return this.$message.error("更新用户信息失败！")
         }
         // 关闭对话框
         this.editDialogVisible = false
         // 刷新数据列表
         this.getUserList()
         // 提示修改成功
-        this.$message.success('更新用户信息成功！')
+        this.$message.success("更新用户信息成功！")
       })
     },
     // 根据Id删除对应的用户信息
     async removeUserById (id) {
       // 弹框询问用户是否删除数据
       const confirmResult = await this.$confirm(
-        '此操作将永久删除该用户, 是否继续?',
-        '提示',
+        "此操作将永久删除该用户, 是否继续?",
+        "提示",
         {
-          confirmButtonText: '确定',
-          cancelButtonText: '取消',
-          type: 'warning'
+          confirmButtonText: "确定",
+          cancelButtonText: "取消",
+          type: "warning"
         }
       ).catch(err => err)
       // 如果用户确认删除，则返回值为字符串 confirm
       // 如果用户取消了删除，则返回值为字符串 cancel
       // console.log(confirmResult)
-      if (confirmResult !== 'confirm') {
-        return this.$message.info('已取消删除')
+      if (confirmResult !== "confirm") {
+        return this.$message.info("已取消删除")
       }
 
-      const res = await this.$http.delete('users/' + id)
+      const res = await this.$http.delete("users/" + id)
 
       if (res.status !== 200) {
-        return this.$message.error('删除用户失败！')
+        return this.$message.error("删除用户失败！")
       }
 
-      this.$message.success('删除用户成功！')
+      this.$message.success("删除用户成功！")
       this.getUserList()
     },
     async chooseClassById (id) {
-      window.sessionStorage.setItem('sid', id)
-      this.$router.push('Studentmessage')
+      window.sessionStorage.setItem("sid", id)
+      this.$router.push("Studentmessage")
     }
   }
 }
